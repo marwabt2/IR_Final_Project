@@ -23,17 +23,23 @@ def create_tfidf_vector_from_corpus(request: TFIDFRequest):
     collection = db[collection_name]
 
     all_doc_ids = []
+    all_doc=[]
     all_processed_texts = []
 
     cursor = collection.find({}, {"_id": 0, "doc_id": 1, "text": 1})
     for doc in cursor:
         if "doc_id" in doc and "text" in doc:
             all_doc_ids.append(doc["doc_id"])
+            all_doc.append(doc["text"])
             all_processed_texts.append(processed_text(doc["text"]))
 
-    logger.info(f"Vectorizing {len(all_processed_texts)} documents")
-    vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(all_processed_texts)
+    logger.info(f"Vectorizing {len(all_doc)} documents")
+    vectorizer = TfidfVectorizer(
+        preprocessor=processed_text,
+        max_df=0.5,
+        min_df=1
+    )
+    tfidf_matrix = vectorizer.fit_transform(all_doc)
 
     safe_name = dataset_path.replace("/", "__")
     db_dir = os.path.join("db", safe_name)
@@ -43,6 +49,7 @@ def create_tfidf_vector_from_corpus(request: TFIDFRequest):
     joblib.dump(vectorizer.vocabulary_, os.path.join(db_dir, "vocabulary.joblib"))
     joblib.dump(vectorizer, os.path.join(db_dir, "vectorizer.joblib"))
     joblib.dump(all_doc_ids, os.path.join(db_dir, "doc_ids.joblib"))
+    joblib.dump(all_doc, os.path.join(db_dir, "raw_texts.joblib"))
     joblib.dump(all_processed_texts, os.path.join(db_dir, "all_texts.joblib"))
 
     logger.info(f"TF-IDF created and saved for {dataset_path}")
