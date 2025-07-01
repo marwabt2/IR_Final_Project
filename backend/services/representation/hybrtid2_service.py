@@ -2,10 +2,15 @@ import os
 import sys
 import joblib
 import numpy as np
-
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../.."))
 
 from backend.logger_config import logger
+
+from tqdm import tqdm
+import time
+
+for i in tqdm(range(10)):
+    time.sleep(0.5)
 
 def load_component(dataset_path: str, name: str):
     safe_name = dataset_path.replace("/", "__")

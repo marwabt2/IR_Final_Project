@@ -1,82 +1,143 @@
 import os
-import joblib
+import sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../.."))
+
 import numpy as np
+import joblib
 import faiss
 from fastapi import APIRouter
 from pydantic import BaseModel
 from sklearn.preprocessing import normalize
+from sentence_transformers.cross_encoder import CrossEncoder
 
+from backend.services.text_processing_service import processed_text
+from backend.services.representation.bert_service import embed_text
+from backend.database.connection import get_mongo_connection
 from backend.logger_config import logger
 
 router = APIRouter()
 
-class HybridRequest(BaseModel):
+class HybridSearchRequest(BaseModel):
+    query: str
     dataset_path: str
     alpha: float = 0.3
+    top_k: int = 30
+    rerank_k: int = 500
 
-def load_tfidf_matrix_and_doc_ids(dataset_path: str):
+def load_tfidf_components(dataset_path):
     safe_name = dataset_path.replace("/", "__")
     base_path = os.path.join("db", safe_name)
-    tfidf_matrix = joblib.load(os.path.join(base_path, "tfidf_matrix.joblib"))
-    doc_ids = joblib.load(os.path.join(base_path, "doc_ids.joblib"))
-    return tfidf_matrix, doc_ids
+    vectorizer = joblib.load(os.path.join(base_path, "vectorizer.joblib"))
+    tfidf_doc_ids = joblib.load(os.path.join(base_path, "doc_ids.joblib"))
+    return vectorizer, tfidf_doc_ids
 
-def load_bert_embeddings_and_doc_ids(dataset_path: str):
+def load_bert_doc_ids(dataset_path):
     safe_name = dataset_path.replace("/", "__")
     base_path = os.path.join("db", safe_name)
-    emb_path = os.path.join(base_path, "bert_embeddings.joblib")
-    ids_path = os.path.join(base_path, "bert_doc_ids.joblib")
-    if not os.path.exists(emb_path) or not os.path.exists(ids_path):
-        raise FileNotFoundError("BERT embeddings or doc_ids file not found")
-    embeddings = joblib.load(emb_path)
-    doc_ids = joblib.load(ids_path)
-    return embeddings, doc_ids
+    bert_doc_ids = joblib.load(os.path.join(base_path, "bert_doc_ids.joblib"))
+    return bert_doc_ids
 
-@router.post("/hybrid/build")
-def create_hybrid_representation(request: HybridRequest):
+def load_weighted_index(dataset_path):
+    safe_name = dataset_path.replace("/", "__")
+    path = os.path.join("db", safe_name, "weighted_inverted_index.joblib")
+    if not os.path.exists(path):
+        return None
+    return joblib.load(path)
+
+def faiss_search(query_vector, index_path, top_k):
+    index = faiss.read_index(index_path)
+    query_vector = query_vector.astype(np.float32).reshape(1, -1)
+    distances, indices = index.search(query_vector, top_k)
+    return indices[0], distances[0]
+
+def load_documents_by_ids(dataset_path, doc_ids):
+    db = get_mongo_connection()
+    collection = db[dataset_path.replace("/", "_")]
+    docs = {}
+    for doc_id in doc_ids:
+        doc = collection.find_one({"doc_id": doc_id}, {"_id": 0, "text": 1})
+        if doc:
+            docs[doc_id] = doc["text"]
+    return docs
+
+@router.post("/hybrid/search")
+def hybrid_search_api(request: HybridSearchRequest):
+    query = request.query
     dataset_path = request.dataset_path
     alpha = request.alpha
-    logger.info(f"Start building hybrid FAISS index for dataset: {dataset_path}")
+    top_k = request.top_k
+    rerank_k = request.rerank_k
 
-    try:
-        tfidf_matrix, tfidf_doc_ids = load_tfidf_matrix_and_doc_ids(dataset_path)
-        bert_embeddings, bert_doc_ids = load_bert_embeddings_and_doc_ids(dataset_path)
+    logger.info(f"Hybrid + FAISS + Cross-Encoder Rerank Search on {dataset_path}")
 
-        if tfidf_doc_ids != bert_doc_ids:
-            return {"error": "Mismatch between TF-IDF and BERT doc IDs"}
+    vectorizer, tfidf_doc_ids = load_tfidf_components(dataset_path)
+    bert_doc_ids = load_bert_doc_ids(dataset_path)
 
-        n_docs = len(tfidf_doc_ids)
-        tfidf_dim = tfidf_matrix.shape[1]
-        bert_dim = bert_embeddings.shape[1]
+    if tfidf_doc_ids != bert_doc_ids:
+        return {"error": "Mismatch between TF-IDF and BERT doc IDs"}
 
-        logger.info(f"TF-IDF shape: {tfidf_matrix.shape}, BERT shape: {bert_embeddings.shape}")
+    processed_query = processed_text(query)
+    query_tfidf_vector = vectorizer.transform([processed_query])
+    query_bert_vector = embed_text(processed_query).reshape(1, -1)
 
-        hybrid_embeddings = np.zeros((n_docs, tfidf_dim + bert_dim), dtype=np.float32)
-        bert_embeddings_norm = normalize(bert_embeddings, norm='l2')
+    query_tfidf_norm = normalize(query_tfidf_vector, norm='l2', axis=1).toarray()
+    query_bert_norm = normalize(query_bert_vector, norm='l2', axis=1)
 
-        for i in range(n_docs):
-            tfidf_vec = tfidf_matrix.getrow(i).toarray().reshape(-1)
-            tfidf_vec_norm = tfidf_vec / np.linalg.norm(tfidf_vec) if np.linalg.norm(tfidf_vec) > 0 else tfidf_vec
-            hybrid_vec = np.concatenate([alpha * tfidf_vec_norm, (1 - alpha) * bert_embeddings_norm[i]])
-            hybrid_embeddings[i] = hybrid_vec
-            if (i + 1) % 10000 == 0:
-                logger.info(f"Processed {i + 1}/{n_docs} documents")
+    hybrid_query = np.concatenate([alpha * query_tfidf_norm, (1 - alpha) * query_bert_norm], axis=1)
 
-        faiss.normalize_L2(hybrid_embeddings)
-        index = faiss.IndexFlatIP(hybrid_embeddings.shape[1])
-        index.add(hybrid_embeddings.astype(np.float32))
+    safe_name = dataset_path.replace("/", "__")
+    faiss_index_path = os.path.join("db", safe_name, "hybrid_faiss.index")
 
-        safe_name = dataset_path.replace("/", "__")
-        out_path = os.path.join("db", safe_name, "hybrid_faiss.index")
-        faiss.write_index(index, out_path)
+    weighted_index = load_weighted_index(dataset_path)
+    if weighted_index is None:
+        return {"error": "Weighted inverted index not found"}
 
-        logger.info(f"Hybrid FAISS index saved to: {out_path}")
+    candidate_doc_ids = set()
+    for term in processed_query.split():
+        if term in weighted_index:
+            candidate_doc_ids.update(weighted_index[term].keys())
 
-        return {
-            "status": "Hybrid FAISS index created successfully",
-            "documents_processed": n_docs,
-            "index_path": out_path
-        }
+    if not candidate_doc_ids:
+        return {"results": []}
 
-    except FileNotFoundError as e:
-        return {"error": str(e)}
+    top_indices, hybrid_sim_scores = faiss_search(hybrid_query, faiss_index_path, rerank_k)
+    all_faiss_doc_ids = [tfidf_doc_ids[i] for i in top_indices]
+
+    filtered_doc_ids = [doc_id for doc_id in all_faiss_doc_ids if doc_id in candidate_doc_ids]
+    filtered_scores = [score for doc_id, score in zip(all_faiss_doc_ids, hybrid_sim_scores) if doc_id in candidate_doc_ids]
+
+    if not filtered_doc_ids:
+        return {"results": []}
+
+    doc_texts = load_documents_by_ids(dataset_path, filtered_doc_ids)
+
+    model_name = 'cross-encoder/ms-marco-MiniLM-L-12-v2'
+    local_dir = 'models/msmarco_cross_encoder'
+
+    if not os.path.exists(local_dir):
+        from huggingface_hub import snapshot_download
+        snapshot_download(repo_id=model_name, local_dir=local_dir, local_dir_use_symlinks=False)
+
+    model = CrossEncoder(local_dir)
+
+    pairs = [(query, doc_texts[doc_id]) for doc_id in filtered_doc_ids]
+    rerank_scores = model.predict(pairs)
+
+    rerank_dict = dict(zip(filtered_doc_ids, rerank_scores))
+    hybrid_dict = dict(zip(filtered_doc_ids, filtered_scores))
+
+    final_ranking = sorted(
+        filtered_doc_ids,
+        key=lambda doc_id: 0.6 * rerank_dict[doc_id] + 0.4 * hybrid_dict[doc_id],
+        reverse=True
+    )
+
+    results = []
+    for doc_id in final_ranking[:top_k]:
+        results.append({
+            "doc_id": doc_id,
+            "score": float(rerank_dict[doc_id]),
+            "text": doc_texts[doc_id]
+        })
+
+    return {"results": results}

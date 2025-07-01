@@ -3,15 +3,30 @@ import os
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../.."))
 
 import joblib
-from backend.services.text_processing_service import processed_text
+from fastapi import APIRouter
+from pydantic import BaseModel
+from backend.services.text_processing_service import bm25_processed_text
 from backend.database.connection import get_mongo_connection
 from backend.logger_config import logger
-
 from rank_bm25 import BM25Okapi
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-import torch
 from sentence_transformers import CrossEncoder
+from nltk.corpus import wordnet
 
+router = APIRouter()
+
+class BM25SearchRequest(BaseModel):
+    query: str
+    dataset_path: str
+    top_k: int = 10
+    initial_k: int = 50  # نستخدمه داخلياً قبل إعادة الترتيب
+
+def expand_query(tokens):
+    expanded = set(tokens)
+    for token in tokens:
+        for syn in wordnet.synsets(token):
+            for lemma in syn.lemmas():
+                expanded.add(lemma.name().replace("_", " "))
+    return list(expanded)
 
 def load_bm25_components(dataset_path: str):
     safe_name = dataset_path.replace("/", "__")
@@ -20,7 +35,6 @@ def load_bm25_components(dataset_path: str):
     doc_ids = joblib.load(os.path.join(base_path, "doc_ids.joblib"))
     tokenized_texts = joblib.load(os.path.join(base_path, "all_tokenized_texts.joblib"))
     return bm25_model, doc_ids, tokenized_texts
-
 
 def load_documents_by_ids(dataset_path: str, doc_ids):
     db = get_mongo_connection()
@@ -32,15 +46,24 @@ def load_documents_by_ids(dataset_path: str, doc_ids):
             docs[doc_id] = doc["text"]
     return docs
 
+@router.post("/bm25/search")
+def bm25_search(request: BM25SearchRequest):
+    query = request.query
+    dataset_path = request.dataset_path
+    top_k = request.top_k
+    initial_k = request.initial_k
 
-def bm25_search(query: str, dataset_path: str, top_k: int = 10, initial_k: int = 50):
     logger.info(f"BM25 + Cross-Encoder Re-ranking on dataset: {dataset_path}")
 
     bm25_model, doc_ids, tokenized_texts = load_bm25_components(dataset_path)
-    processed_query = processed_text(query)
-    query_terms = processed_query.split()
 
-    # Load weighted inverted index
+    query_tokens = bm25_processed_text(query)
+    if not query_tokens:
+        logger.warning("Query processing resulted in no tokens.")
+        return []
+
+    expanded_query = expand_query(query_tokens)
+
     safe_name = dataset_path.replace("/", "__")
     weighted_index_path = os.path.join("db", safe_name, "weighted_inverted_index.joblib")
     if not os.path.exists(weighted_index_path):
@@ -49,7 +72,7 @@ def bm25_search(query: str, dataset_path: str, top_k: int = 10, initial_k: int =
     weighted_index = joblib.load(weighted_index_path)
 
     candidate_doc_ids = set()
-    for term in query_terms:
+    for term in expanded_query:
         if term in weighted_index:
             candidate_doc_ids.update([entry["doc_id"] for entry in weighted_index[term]])
 
@@ -64,7 +87,7 @@ def bm25_search(query: str, dataset_path: str, top_k: int = 10, initial_k: int =
         logger.warning("No candidate indices matched in BM25 model.")
         return []
 
-    scores = bm25_model.get_scores(query_terms)
+    scores = bm25_model.get_scores(expanded_query)
     candidate_scores = [(i, scores[i]) for i in candidate_indices]
     candidate_scores.sort(key=lambda x: x[1], reverse=True)
 

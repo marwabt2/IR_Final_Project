@@ -1,16 +1,29 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../.."))
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from collections import defaultdict
 import ir_datasets
 import httpx
+import json
+import numpy as np
+import pandas as pd
+from sklearn.metrics import precision_score, recall_score, average_precision_score
+from backend.database.connection import get_mongo_connection
+from fastapi.responses import JSONResponse
 
 from backend.services.representation.tfidf_service import router as tfidf_router
 from backend.services.representation.bert_service import router as bert_router
+from backend.services.representation.bm25_service import router as bm25_router
 from backend.services.representation.hybrid_service import router as hybrid_router
 from backend.services.representation.weighted_inverted_index_service import router as weighted_router
+from backend.services.representation.bm25_weighted_inverted_index_service import router as bm25_weighted_router
 
 from backend.services.search.tfidf_search_service import router as tfidf_search_router
 from backend.services.search.bert_search_service import router as bert_search_router
+from backend.services.search.bm25_search_service import router as bm25_search_router
 from backend.services.search.hybrid_search_service import router as hybrid_search_router
 
 app = FastAPI()
@@ -18,88 +31,140 @@ app = FastAPI()
 # تسجيل الروترات
 app.include_router(tfidf_router)
 app.include_router(bert_router)
+app.include_router(bm25_router)
 app.include_router(hybrid_router)
 app.include_router(weighted_router)
+app.include_router(bm25_weighted_router)
 
 app.include_router(tfidf_search_router)
 app.include_router(bert_search_router)
+app.include_router(bm25_search_router)
 app.include_router(hybrid_search_router)
 
 class DatasetPathRequest(BaseModel):
     dataset_path: str
 
+all_precisions = []
+all_recalls = []
+all_map_scores = []
+all_mrrs = []
 
-def load_qrels(dataset):
-    qrels = defaultdict(set)
-    for qrel in dataset.qrels_iter():
-        if qrel.relevance >= 1:
-            qrels[qrel.query_id].add(qrel.doc_id)
-    return qrels
+def calculate_precision_recall(relevantOrNot, retrievedDocument, threshold=0.5):
+    binaryResult = (retrievedDocument >= threshold).astype(int)
+    precision = precision_score(relevantOrNot, binaryResult, average='micro')
+    recall = recall_score(relevantOrNot, binaryResult, average='micro')
+    return precision, recall
 
-def average_precision(retrieved, relevant):
-    if not relevant:
-        return 0.0
-    score = 0.0
-    num_hits = 0
-    for i, doc_id in enumerate(retrieved):
-        if doc_id in relevant:
-            num_hits += 1
-            score += num_hits / (i + 1)
-    return score / len(relevant)
 
-def reciprocal_rank(retrieved, relevant):
-    for i, doc_id in enumerate(retrieved):
-        if doc_id in relevant:
-            return 1 / (i + 1)
-    return 0.0
+def calculate_map_score(relevantOrNot, retrievedDocument):
+    return average_precision_score(relevantOrNot, retrievedDocument, average='micro')
 
-def precision_at_k(retrieved, relevant, k):
-    retrieved_k = retrieved[:k]
-    hits = [doc_id for doc_id in retrieved_k if doc_id in relevant]
-    return len(hits) / k
+def calculate_mrr(y_true):
+    rank_position = np.where(y_true == 1)[0]
+    if len(rank_position) == 0:
+        return 0
+    else:
+        return 1 / (rank_position[0] + 1)  # +1 because rank positions are 1-based
 
-def recall(retrieved, relevant):
-    if not relevant:
-        return 0.0
-    hits = [doc_id for doc_id in retrieved if doc_id in relevant]
-    return len(hits) / len(relevant)
+def load_queries(queries_paths):
+    queries = []
+    for file_path in queries_paths:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            for line in file:
+                try:
+                    query = json.loads(line.strip())
+                    if 'query' in query:
+                        queries.append(query)
+                except json.JSONDecodeError:
+                    print(f"Skipping invalid line in {file_path}: {line}")
+    return queries
 
 async def evaluate_search(request: DatasetPathRequest, search_api_url: str):
-    dataset = ir_datasets.load(request.dataset_path)
-    queries = list(dataset.queries_iter())
-    qrels = load_qrels(dataset)
+    safe_name = request.dataset_path.replace("/", "__")
+    db = get_mongo_connection()
+    collection_name = request.dataset_path.replace("/", "_")
+    collection = db[collection_name]
 
-    results = {"MAP": 0.0, "MRR": 0.0, "P@10": 0.0, "Recall": 0.0, "evaluated": 0}
+    texts = []
+    pids = []
 
-    async with httpx.AsyncClient() as client:
+    cursor = collection.find({}, {"_id": 0, "doc_id": 1, "text": 1})
+    for doc in cursor:
+        if "doc_id" in doc and "text" in doc and isinstance(doc["text"], str):
+            pids.append(str(doc["doc_id"]))  # ← cast to string directly
+            texts.append(doc["text"])
+
+    data = pd.DataFrame({"pid": pids, "text": texts})
+    data.dropna(subset=['text'], inplace=True)
+    data["pid"] = data["pid"].astype(str)  # ← تأكيد
+
+    queries_paths = ''
+    if request.dataset_path == 'lotte/lifestyle/dev/forum':
+        queries_paths = r'C:\Users\USER\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl'
+
+    queries = load_queries([queries_paths])
+
+    async with httpx.AsyncClient(timeout=300.0) as client:
         for query in queries:
-            relevant = qrels.get(query.query_id)
-            if not relevant:
-                continue
-            payload = {"dataset_path": request.dataset_path, "query": query.text}
-            try:
-                response = await client.post(search_api_url, json=payload)
-                response.raise_for_status()
-                data = response.json()
-                retrieved = [doc["doc_id"] for doc in data.get("results", [])]
-            except Exception as e:
-                print(f"⚠️ Query {query.query_id} failed: {e}")
-                continue
+            if 'query' in query:
+                response = await client.post(
+                    search_api_url,
+                    json={
+                        "dataset_path": request.dataset_path,
+                        "query": query["query"],
+                        "top_n": 10
+                    }
+                )
 
-            results["MAP"] += average_precision(retrieved, relevant)
-            results["MRR"] += reciprocal_rank(retrieved, relevant)
-            results["P@10"] += precision_at_k(retrieved, relevant, 10)
-            results["Recall"] += recall(retrieved, relevant)
-            results["evaluated"] += 1
+                if response.status_code != 200:
+                    print(f"❌ Search API failed: {response.status_code}")
+                    continue
 
-    if results["evaluated"] == 0:
-        raise HTTPException(status_code=500, detail="❌ No queries evaluated.")
+                response_json = response.json()
+                top_documents = pd.DataFrame(response_json["top_documents"])
+                cosine_similarities = np.array(response_json["cosine_similarities"])
+                retrieved_indices = response_json["top_documents_indices"]
 
-    for metric in ["MAP", "MRR", "P@10", "Recall"]:
-        results[metric] /= results["evaluated"]
+                relevance = np.zeros(len(data))
 
-    return {"status": "success", "metrics": results}
+                for pid in query.get('answer_pids', []):
+                    pid_str = str(pid)
+                    indices = np.where(data['pid'] == pid_str)[0]
+                    relevance[indices] = 1
 
+                retrievedDocument = cosine_similarities
+                relevantOrNot = relevance[retrieved_indices]
+
+                if relevantOrNot.sum() == 0:
+                    print(f"Query skipped – no relevant documents found for: {query['query']}")
+                    continue
+
+                precision, recall = calculate_precision_recall(relevantOrNot, retrievedDocument)
+                all_precisions.append(precision)
+                all_recalls.append(recall)
+
+                map_score = calculate_map_score(relevantOrNot, retrievedDocument)
+                all_map_scores.append(map_score)
+
+                mrr = calculate_mrr(relevantOrNot)
+                all_mrrs.append(mrr)
+
+    if len(all_precisions) == 0:
+        print("⚠️ No valid queries evaluated. Check PIDs matching and dataset content.")
+        return
+
+    avg_precision = np.mean(all_precisions)
+    avg_recall = np.mean(all_recalls)
+    avg_map_score = np.mean(all_map_scores)
+    avg_mrr = np.mean(all_mrrs)
+
+    print(f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}, Average MRR: {avg_mrr}")
+    return JSONResponse(content={
+    "average_precision": avg_precision,
+    "average_recall": avg_recall,
+    "average_map_score": avg_map_score,
+    "average_mrr": avg_mrr
+})
 @app.post("/tfidf/eval")
 async def tfidf_eval(request: DatasetPathRequest):
     return await evaluate_search(request, "http://localhost:8000/tfidf/search")
@@ -119,3 +184,8 @@ async def hybrid_eval(request: DatasetPathRequest):
 @app.post("/hybrid2/eval")
 async def hybrid2_eval(request: DatasetPathRequest):
     return await evaluate_search(request, "http://localhost:8000/hybrid2/search")
+
+
+
+
+

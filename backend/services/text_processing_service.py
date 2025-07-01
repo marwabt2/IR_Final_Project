@@ -1,3 +1,4 @@
+import csv
 import logging
 import nltk
 from nltk import PorterStemmer, WordNetLemmatizer
@@ -7,13 +8,13 @@ import re
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 import unicodedata
 import contractions
+from textblob import TextBlob
 import spacy
 
-# Optional: load spaCy for advanced NLP
-# nlp = spacy.load('en_core_web_sm')
-
-# Load domain-specific stopwords (common_words.txt)
-# with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r', encoding='utf-8') as file:
+# Load spaCy model for advanced text processing
+nlp = spacy.load('en_core_web_sm')
+# with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
+#           encoding='utf-8') as file:
 #     words_to_remove = file.read().splitlines()
 
 
@@ -25,22 +26,25 @@ class TextProcessor:
         self.stop_words = set(stopwords.words('english'))
         self.tokenizer = nltk.tokenize.TreebankWordTokenizer()
 
+    
     def clean_text(self, text, words_to_remove):
         words = text.split()
         cleaned_words = [word for word in words if word not in words_to_remove]
-        return ' '.join(cleaned_words)
+        cleaned_text = ' '.join(cleaned_words)
+        return cleaned_text
 
     def number_to_words(self, text):
         words = self.tokenizer.tokenize(text)
         converted_words = []
         for word in words:
-            if word.replace('.', '', 1).isdigit():
+            # التحقق مما إذا كان النص يمثل رقمًا
+            if word.replace('.', '', 1).isdigit():  # إزالة النقطة العشرية قبل فحص الرقم
                 converted_words.append(word)
             else:
                 if word.isdigit():
                     try:
                         num = int(word)
-                        if num <= 999999999999999:
+                        if num <= 999999999999999:  # تحقق من طول الرقم
                             converted_word = self.inflect_engine.number_to_words(word)
                             converted_words.append(converted_word)
                         else:
@@ -53,11 +57,16 @@ class TextProcessor:
 
     def remove_html_tags(self, text):
         try:
+            # Check if the input text contains HTML tags before parsing
             if '<' in text and '>' in text:
                 return BeautifulSoup(text, "html.parser").get_text()
-            return text
+            else:
+                # If no HTML tags are found, return the original text
+                return text
         except MarkupResemblesLocatorWarning:
-            logging.warning("MarkupResemblesLocatorWarning: input looks more like a filename than markup.")
+            # Handle the warning gracefully
+            logging.warning("MarkupResemblesLocatorWarning: The input looks more like a filename than markup.")
+            # Return the original text if unable to parse as HTML
             return text
 
     def normalize_unicode(self, text):
@@ -76,15 +85,18 @@ class TextProcessor:
 
     def stemming_example(self, text):
         words = self.tokenizer.tokenize(text)
-        return ' '.join([self.stemmer.stem(word) for word in words])
+        stemmed_words = [self.stemmer.stem(word) for word in words]
+        return ' '.join(stemmed_words)
 
     def lemmatization_example(self, text):
         words = self.tokenizer.tokenize(text)
-        return ' '.join([self.lemmatizer.lemmatize(word) for word in words])
+        lemmatized_words = [self.lemmatizer.lemmatize(word) for word in words]
+        return ' '.join(lemmatized_words)
 
     def remove_stopwords(self, text):
         words = self.tokenizer.tokenize(text)
-        return ' '.join([word for word in words if word.lower() not in self.stop_words])
+        filtered_words = [word for word in words if word.lower() not in self.stop_words]
+        return ' '.join(filtered_words)
 
     def remove_punctuation(self, text):
         return re.sub(r'[^\w\s]', '', text)
@@ -95,9 +107,11 @@ class TextProcessor:
     def remove_special_characters_and_emojis(self, text):
         return re.sub(r'[^A-Za-z0-9\s]+', '', text)
 
+
     def replace_synonyms(self, text):
         words = self.tokenizer.tokenize(text)
-        return ' '.join([self.get_synonym(word) for word in words])
+        synonym_words = [self.get_synonym(word) for word in words]
+        return ' '.join(synonym_words)
 
     def get_synonym(self, word):
         synonyms = nltk.corpus.wordnet.synsets(word)
@@ -107,28 +121,25 @@ class TextProcessor:
 
     def handle_negations(self, text):
         words = self.tokenizer.tokenize(text)
-        result = []
+        negated_text = []
         negate = False
         for word in words:
             if word.lower() in ['not', "n't"]:
                 negate = True
             elif negate:
-                result.append(f"NOT_{word}")
+                negated_text.append(f"NOT_{word}")
                 negate = False
             else:
-                result.append(word)
-        return ' '.join(result)
+                negated_text.append(word)
+        return ' '.join(negated_text)
 
     def remove_non_english_words(self, text):
         words = self.tokenizer.tokenize(text)
-        return ' '.join([word for word in words if wordnet.synsets(word)])
+        english_words = [word for word in words if wordnet.synsets(word)]
+        return ' '.join(english_words)
 
 
-# Global instance (reused)
-processor = TextProcessor()
-
-
-def processed_text(text):
+def processed_text(text, processor):
     if text is None:
         return text
     text = processor.cleaned_text(text)
@@ -144,3 +155,16 @@ def processed_text(text):
     text = processor.handle_negations(text)
     text = processor.remove_urls(text)
     return text
+
+stop_words = set(stopwords.words('english'))
+def bm25_processed_text(text):
+    # إزالة HTML
+    text = BeautifulSoup(text, "html.parser").get_text()
+    # Lowercase
+    text = text.lower()
+    # إزالة علامات الترقيم والأرقام
+    text = re.sub(r'[^a-z\s]', '', text)
+    # توكننة وحذف stopwords
+    tokens = text.split()
+    tokens = [t for t in tokens if t not in stop_words]
+    return tokens  # ملاحظة: لا ترجعي string، فقط tokens

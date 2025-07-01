@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -49,10 +49,16 @@
 							"name": "create-tfidf",
 							"originalRequest": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -60,7 +66,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/create-tfidf",
+									"raw": "http://127.0.0.1:8000/tfidf/build",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -70,7 +76,8 @@
 									],
 									"port": "8000",
 									"path": [
-										"create-tfidf"
+										"tfidf",
+										"build"
 									]
 								}
 							},
@@ -80,7 +87,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Thu, 19 Jun 2025 13:12:37 GMT"
+									"value": "Tue, 01 Jul 2025 08:41:14 GMT"
 								},
 								{
 									"key": "server",
@@ -88,7 +95,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "69"
+									"value": "99"
 								},
 								{
 									"key": "content-type",
@@ -96,7 +103,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"message\": \"TF-IDF created for dataset 'vaswani'\"\n}"
+							"body": "{\n    \"status\": \"✅ TF-IDF built successfully on dataset: lotte/lifestyle/dev/forum\",\n    \"documents\": 268893\n}"
 						}
 					]
 				},
@@ -113,7 +120,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\",\r\n    \"query\" :\"natural languges\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\",\r\n    \"query\" :\"are zebra loaches safe with shrimp\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -147,7 +154,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\",\r\n    \"query\" :\"natural languges\"\r\n}",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\",\r\n    \"query\" :\"are zebra loaches safe with shrimp\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -173,7 +180,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Sun, 22 Jun 2025 09:33:18 GMT"
+									"value": "Tue, 01 Jul 2025 09:19:00 GMT"
 								},
 								{
 									"key": "server",
@@ -181,7 +188,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "3345"
+									"value": "9529"
 								},
 								{
 									"key": "content-type",
@@ -189,7 +196,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"results\": [\n        {\n            \"doc_id\": \"8170\",\n            \"score\": 0.7006736883222824,\n            \"text\": \"investigation of the natural frequencies and natural oscillations\\nof imperfect crystal lattices\\n\"\n        },\n        {\n            \"doc_id\": \"5642\",\n            \"score\": 0.3861191594066538,\n            \"text\": \"natural frequencies of coils and windings  digest only  calculations\\nfor an equivalent circuit consisting of reactors only were made using\\npunched card equipment an ac network analyser  the effect of neglecting\\nthe mutual inductance between elements partly or completely is shown\\ngraphically  very close agreement with measured natural frequencies\\nwas obtained\\n\"\n        },\n        {\n            \"doc_id\": \"10888\",\n            \"score\": 0.345663277794912,\n            \"text\": \"restrictions on the natural frequencies of an network  theory is\\ndeveloped suitable for application in the synthesis of passive and\\nactive networks\\n\"\n        },\n        {\n            \"doc_id\": \"4052\",\n            \"score\": 0.3071467013361141,\n            \"text\": \"natural electrical oscillations in the earth air ionosphere cavity\\nexcited by lightning discharges  the theory underlying the experimentally\\nobserved resonance effects is discussed\\n\"\n        },\n        {\n            \"doc_id\": \"5039\",\n            \"score\": 0.28349962599102657,\n            \"text\": \"calculation of the natural frequency of a type cavity partly filled\\nwith an absorbing dielectric  the system considered comprises a re\\nentrant cylindrical cavity resonator with a solid dielectric specimen\\nin the form of a truncated cone placed between the base of the cylinder\\nand the butt end of the inner conductor  formulae derived for the\\nnatural frequency and the damping can be used also to determine the\\ncomponents of the complex dielectric constant of the specimen this\\nanalysis also provides the theoretical basis of the measurement method\\ndescribed by works and others\\n\"\n        },\n        {\n            \"doc_id\": \"6162\",\n            \"score\": 0.27309525855463934,\n            \"text\": \"natural vibrations of a open cavity  the field is expressed in a\\nmanner taking account of a set of oscillation modes associated with\\nthe cavity openings\\n\"\n        },\n        {\n            \"doc_id\": \"4715\",\n            \"score\": 0.2700564006719229,\n            \"text\": \"oscillations of coupled windings  digest of paper  using the mutual\\ninductances functions the integral equation method of determining\\nthe natural frequencies is extended to take account of the effect\\nof a transformer secondary winding\\n\"\n        },\n        {\n            \"doc_id\": \"7755\",\n            \"score\": 0.2627436886302813,\n            \"text\": \"nonradiative natural oscillations of a conducting sphere so surrounded\\nby a layer of air and an ionospheric sheath  a theoretical investigation\\nhaving special reference to em oscillations of the earth and relevant\\nto the study of atmospherics  the dependence of the oscillation frequencies\\non the air layer thickness and on the plasma properties are\\nanalysed  the lowest natural frequency to be expected for earth oscillations\\nis about  oscillations of low frequencies are reflected at\\nthe inner surface of the plasma while higher order oscillations may\\npenetrate right through the plasma and radiate into space\\n\"\n        },\n        {\n            \"doc_id\": \"4020\",\n            \"score\": 0.2566351550859308,\n            \"text\": \"wavelength dependence of scattering coefficient for infrared radiation\\nin natural haze  a formula consistent with the mie scattering coefficient\\nis given for see of june\\n\"\n        },\n        {\n            \"doc_id\": \"2447\",\n            \"score\": 0.23021629126495852,\n            \"text\": \"half cycle resonant delay circuit  a new circuit generating a rectangular\\npulse of duration equal to the natural half cycle of an lc circuit\\nthe principles are applicable to the generation of pulses\\n\"\n        }\n    ]\n}"
+							"body": "{\n    \"top_documents\": [\n        {\n            \"pid\": \"7323\",\n            \"text\": \"I made the mistake of keeping Kouli Loaches in a 55 gal heavily planted tank with Amano shrimp. I added several shrimp 3 times and they would just disappear. I thought they were just finding good hiding places until late one night I was watching and one of my loaches attacked and ate an Amano shrimp. They might be compatible at first until the loaches grow large enough to eat the shrimp.\"\n        },\n        {\n            \"pid\": \"3811\",\n            \"text\": \"The key word you used was Loaches. Any shrimp you put in that tank are immediately an expensive fancy dinner. Loaches will flip them and rip them out of their shells just like they were snails. Loaches and invertebrates just don't mix. Mollies will eat all but the largest shrimp as well. I've had this experience personally as I watched one devour my red crystals.\"\n        },\n        {\n            \"pid\": \"6305\",\n            \"text\": \"Shrimp won't cause any noticeable bioload in a tank, especially a 60l one, and they won't 'stress out' any inhabitants other than solo fish, such as a betta, which shouldn't really have anything sharing the tank with it anyway. As for using them as food, I'm not sure it'd work - if you fish don't actively eat the shrimp currently, then they are unlikely to be bothered about eating them once they are dead either as they are likely herbivores If you happen to have another tank that has loaches in (I know both Pakistani and Clown loaches will) they will eat shrimps and snails quite happily.\"\n        },\n        {\n            \"pid\": \"619\",\n            \"text\": \"Amano shrimp are good tank mates for community fish. They'll ignore your fish altogether. And they eat algae 24x7, which never hurts. Amano shrimp require brackish water for breeding, so won't breed in most tanks. This also makes them difficult to find. Cherry shrimp (and their color varieties) will also be no threat to your fish. But, they are very small, so aggressive fish (barbs, for example) may go after them. They breed quite easily and rapidly, so if you want more of them make sure you have plenty of hiding places for the young shrimp. Cherry shrimp are also algae eaters, though being so small you'll need huge quantities of them to have an real impact if algae controll is a goal. Really, for most shrimp in tanks, the issue isn't if they are a danger to the fish, but if the fish will be a danger to the shrimps. Even larger shrimp may find their extremities and tails the target of nipping. The tetras shouldn't be a problem for the shrimp, but the loaches may go after them. Edit: One heads up about shrimp (and most aquarium invertebrates, actually). A lot of medications and chemicals you might use in a tank are poisonous to them. So once they are in there, you'll need to be extra careful with what you put into the tank, and check that it is safe for shrimp.\"\n        },\n        {\n            \"pid\": \"5178\",\n            \"text\": \"I don't have any experience with ghost shrimp, but I do have cherry shrimps. And it seems like they are pretty much alike in behaviour, size, care taking, ... Shrimp are a lot different than fish, their bio footprint is a lot lower, they are a lot smaller,... So I would not use such calculators to see how many you can have. They usually just take the size of the fish and do some calculations (which is not a good way anyway). This site seems to have some good information about ghost shrimp and it mentions 10 shrimp/gallon. But I agree with Karl's comment above: it doesn't really matter. But make sure you have more shrimp than tetra's. Actually I would say: the more shrimp the better. I've got a 30 litre (8 gallon) tank with only cherry shrimp. I started with about 20 shrimp I believe (1.5 year ago). Now I probably have close to 100. But I don't have the feeling it is overstocked. They're always spread out over the tank or swimming around. It's only when I feed them that they all come to the same place and you actually see how many there are. I also have a 180 litres (47 gallon) tank with some corrydoras, tetra's and a betta in which I added about 15 shrimp a couple of months ago. I have no idea how many shrimp I have now (lot's of hiding places), but I always have about 10 in sight. So I'm sure those 15 shrimp were enough to keep the population steady (and growing). So for you, it would start with at least 10-15 shrimp and see how it goes. And I would not worry too much about having to do population control. More baby shrimp will also mean that more will be eaten by the tetra's anyway (becasue they will be easier to spot by them).\"\n        },\n        {\n            \"pid\": \"4573\",\n            \"text\": \"I actually have 4 Yoyo loaches, two cory dorus (SP) and 5 cherry shrimp. So far, for the past 3 months, my shrimp have been fine so far. My tank is heavily planted with moss and various other plants which obviously helps. Also, my Yoyo's are well fed and there are plenty of pest snails to keep them happy - shrimp can move pretty fast when they want to so its easier for them to eat the snails than chase the shrimp. Good luck\"\n        },\n        {\n            \"pid\": \"5159\",\n            \"text\": \"Neon tetras will indeed eat baby shrimp. So they can be used for population control. But keep in mind that you do have to try to keep some of the babies alive. Otherwise you might end up without any shrimp after a while. From your other post, it seems like your tank won't have many hiding places for the shrimp. So you might want to add a few real plants and moss (shrimp will love this) and a shrimp cave. Especially when shrimp are shedding their skin, they are more vulnerable and also need a more quiet place to hide.\"\n        },\n        {\n            \"pid\": \"70166\",\n            \"text\": \"Live shrimp are just that, alive. You can use the fact that they are alive to determine that they are reasonably safe to eat. However frozen shrimp do not have that built-in check. The FDA and other agencies will \\\"police\\\" commercially available frozen shrimp, but they don't do anything for bait shrimp. Frozen bait shrimp are usually the dead, dying, or otherwise discarded live bait shrimp. It's not uncommon for a bait shop to sell live shrimp, then take all the dead \\\"floaters\\\" and sell them as frozen shrimp. Again, quite safe for bait, not so good for eating. Bait shrimp you freeze yourself has a similar issue. If you're eating the live bait shrimp, then you know, for a fact, how old and what condition the shrimp are in. If you happen to have a bait-well full of dead shrimp and freeze it, (again that's fine for bait,) you have no idea why the shrimp died. Moreover, if you \\\"collect\\\" frozen shrimp between trips, you probably didn't bother to mark the freeze date or freeze the shrimp quickly, or a bunch of other things. In essence, live shrimp you take from the bait-well and boil or try, you know the state of. Frozen (bait) shrimp has been rolling around in the freezer for an unknown amount of time. Well better that one just be bait. Now you could eat the frozen shrimp if you take great care in freezing it. But again, that's not usually what happens. http://myfwc.com/research/saltwater/crustaceans/shrimp/faq/ http://floridahillbilly.com/eating-bait-shrimp/\"\n        },\n        {\n            \"pid\": \"9556\",\n            \"text\": \"I'll preface with the fact that I have not kept shrimp for very long, and I've not bred them. But I have done a lot of research on the fact (as much as I could, there's not a lot of easily accessible, reliable resources out there), since keeping varying types of shrimp together runs a number of breeding risks. You really can't tell who bred with who at this point, not until the shrimp eggs hatch, and the shrimps mature, which is only a matter of about 2 months (varies per type). Have you sexed your shrimp? You could make an educated guess based on your female to male ratios. (I.e., if your 1 Red Rili was female, you can remove that shrimp as a possible parent of your current eggs.) It's important to know that it's not uncommon for crossbred (breeding between different species) shrimp to return to \\\"wild\\\" coloring (brown), instead of taking on one of a parent's trait. Interbreeding (breeding between same species) is more likely to keep the vibrant colors. There's a number of helpful interbreeding and crossbreeding charts you should check out, which can help you narrow down if who might have bred with who, if some parings wouldn't be possible. I felt that this article was particularly useful, and has a chart linked at the end: Interbreeding Chart. For example: it is possible for your Blue Velvet to have bred with your Red Cherry, but is highly likely to produce a brown shrimp. (a lot of shrimp have varying names, or are falsely labeled, so you may need to look up the specific genus of each of your shrimp to match them up on that chart.) I'd also like to note that, if you have a fish that is killing your shrimp, the baby shrimp may not live long enough for you to tell. I would recommend keeping your breeding and baby shrimp separate from the fish.\"\n        },\n        {\n            \"pid\": \"2763\",\n            \"text\": \"Shrimp are more active at lower lighting and during complete blackouts (nighttime). If you would leave your light on for the entire day, they will go into hiding and become stressed. They will start losing color and eventually die. Not only your shrimp will suffer but you will almost certainly get a lot of algae. A source: http://www.redcherryshrimp.net/shrimp-information/beginner-guide-101/starting-out-with-red-cherry-shrimp-rcs/ + experience breeding and keeping shrimp\"\n        }\n    ],\n    \"cosine_similarities\": [\n        0.608353928744968,\n        0.5893379585375014,\n        0.475385651361236,\n        0.45831834901554036,\n        0.432496621515258,\n        0.42458245511632253,\n        0.42351771304345137,\n        0.41369686529779653,\n        0.4002082367768299,\n        0.39070911921975904\n    ],\n    \"top_documents_indices\": [\n        7323,\n        3811,\n        6305,\n        619,\n        5178,\n        4573,\n        5159,\n        70166,\n        9556,\n        2763\n    ]\n}"
 						}
 					]
 				},
@@ -206,7 +213,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -228,7 +235,7 @@
 					},
 					"response": [
 						{
-							"name": "search-tfidf",
+							"name": "eval-tfidf",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -240,7 +247,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -266,7 +273,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Sun, 22 Jun 2025 09:05:02 GMT"
+									"value": "Tue, 01 Jul 2025 08:26:44 GMT"
 								},
 								{
 									"key": "server",
@@ -274,7 +281,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "152"
+									"value": "149"
 								},
 								{
 									"key": "content-type",
@@ -282,7 +289,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"metrics\": {\n        \"MAP\": 0.1105300202238861,\n        \"MRR\": 0.5796528867957442,\n        \"P@10\": 0.2681318681318682,\n        \"Recall\": 0.18056411780695816,\n        \"evaluated\": 91\n    }\n}"
+							"body": "{\n    \"average_precision\": 0.49803921568627446,\n    \"average_recall\": 0.49803921568627446,\n    \"average_map_score\": 0.5635681216931216,\n    \"average_mrr\": 0.588562091503268\n}"
 						}
 					]
 				}
@@ -304,7 +311,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -327,68 +334,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "create-bert",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/create-bert-faiss/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"create-bert-faiss",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "date",
-									"value": "Thu, 19 Jun 2025 14:39:35 GMT"
-								},
-								{
-									"key": "server",
-									"value": "uvicorn"
-								},
-								{
-									"key": "content-length",
-									"value": "79"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"message\": \"BERT FAISS index created for dataset 'vaswani'\"\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "search-bert",
@@ -452,61 +398,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "search-bert",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/bert-search",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"bert-search"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "date",
-									"value": "Fri, 20 Jun 2025 17:40:48 GMT"
-								},
-								{
-									"key": "server",
-									"value": "uvicorn"
-								},
-								{
-									"key": "content-length",
-									"value": "153"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"metrics\": {\n        \"MAP\": 0.30892647494241915,\n        \"MRR\": 0.7879999999999999,\n        \"P@10\": 0.42399999999999993,\n        \"Recall\": 0.5412463386687101,\n        \"evaluated\": 50\n    }\n}"
-						}
-					]
+					"response": []
 				}
 			]
 		},
@@ -526,7 +418,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -534,7 +426,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/create-bm25/",
+							"raw": "http://127.0.0.1:8000/bm25/build",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -544,8 +436,8 @@
 							],
 							"port": "8000",
 							"path": [
-								"create-bm25",
-								""
+								"bm25",
+								"build"
 							]
 						}
 					},
@@ -563,7 +455,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -571,7 +463,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/create-bm25/",
+									"raw": "http://127.0.0.1:8000/bm25/build",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -581,8 +473,8 @@
 									],
 									"port": "8000",
 									"path": [
-										"create-bm25",
-										""
+										"bm25",
+										"build"
 									]
 								}
 							},
@@ -592,7 +484,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Sat, 21 Jun 2025 10:36:18 GMT"
+									"value": "Tue, 01 Jul 2025 10:28:28 GMT"
 								},
 								{
 									"key": "server",
@@ -608,7 +500,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"message\": \"BM25 created for dataset 'vaswani'\"\n}"
+							"body": "{\n    \"status\": \"BM25 created successfully\",\n    \"documents_processed\": 268892\n}"
 						}
 					]
 				},
@@ -627,7 +519,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/bm25-search",
+							"raw": "http://127.0.0.1:8000/bm25/search",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -637,118 +529,44 @@
 							],
 							"port": "8000",
 							"path": [
-								"bm25-search"
+								"bm25",
+								"search"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "search-bm25",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/bm25-search",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"bm25-search"
-									]
+					"response": []
+				},
+				{
+					"name": "eval-bm25",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "date",
-									"value": "Sat, 21 Jun 2025 10:39:22 GMT"
-								},
-								{
-									"key": "server",
-									"value": "uvicorn"
-								},
-								{
-									"key": "content-length",
-									"value": "154"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"metrics\": {\n        \"MAP\": 0.16432102612261715,\n        \"MRR\": 0.7055555555555554,\n        \"P@10\": 0.37400000000000005,\n        \"Recall\": 0.24555883211715873,\n        \"evaluated\": 50\n    }\n}"
+							}
 						},
-						{
-							"name": "search-bm25",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/bm25-search",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"bm25-search"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "date",
-									"value": "Sat, 21 Jun 2025 11:38:15 GMT"
-								},
-								{
-									"key": "server",
-									"value": "uvicorn"
-								},
-								{
-									"key": "content-length",
-									"value": "139"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json"
-								}
+						"url": {
+							"raw": "http://127.0.0.1:8000/bm25/eval",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
 							],
-							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"metrics\": {\n        \"MAP\": 0.20278923674583038,\n        \"MRR\": 0.7755,\n        \"P@10\": 0.4139999999999999,\n        \"Recall\": 0.279269143800732,\n        \"evaluated\": 50\n    }\n}"
+							"port": "8000",
+							"path": [
+								"bm25",
+								"eval"
+							]
 						}
-					]
+					},
+					"response": []
 				}
 			]
 		},
@@ -768,7 +586,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -791,68 +609,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "create-hybrid",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/create-hybrid-tfidf-bert/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"create-hybrid-tfidf-bert",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "date",
-									"value": "Fri, 20 Jun 2025 18:52:58 GMT"
-								},
-								{
-									"key": "server",
-									"value": "uvicorn"
-								},
-								{
-									"key": "content-length",
-									"value": "93"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Hybrid (TF-IDF + BERT) vectors created for dataset 'vaswani'\"\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "search-hybrid",
@@ -1120,7 +877,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dataset_path\": \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1128,7 +885,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/create-weighted-inverted-index",
+							"raw": "http://127.0.0.1:8000/weighted_index/create",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1138,7 +895,8 @@
 							],
 							"port": "8000",
 							"path": [
-								"create-weighted-inverted-index"
+								"weighted_index",
+								"create"
 							]
 						}
 					},
@@ -1150,7 +908,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"dataset_path\": \"vaswani\"\r\n}",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1158,7 +916,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/create-weighted-inverted-index",
+									"raw": "http://127.0.0.1:8000/weighted_index/create",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -1168,7 +926,8 @@
 									],
 									"port": "8000",
 									"path": [
-										"create-weighted-inverted-index"
+										"weighted_index",
+										"create"
 									]
 								}
 							},
@@ -1178,7 +937,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Thu, 19 Jun 2025 13:16:17 GMT"
+									"value": "Tue, 01 Jul 2025 10:14:57 GMT"
 								},
 								{
 									"key": "server",
@@ -1186,7 +945,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "86"
+									"value": "78"
 								},
 								{
 									"key": "content-type",
@@ -1194,7 +953,94 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Weighted inverted index created for dataset 'vaswani'\"\n}"
+							"body": "{\n    \"status\": \"Weighted inverted index created successfully\",\n    \"terms_count\": 165278\n}"
+						}
+					]
+				},
+				{
+					"name": "create-bm25_weighted-inverted-index",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/weighted_index/create_bm25",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"weighted_index",
+								"create_bm25"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create-bm25_weighted-inverted-index",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/weighted_index/create_bm25",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"weighted_index",
+										"create_bm25"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Tue, 01 Jul 2025 10:34:55 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "110"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"BM25 weighted inverted index created successfully\",\n    \"terms_count\": 300982,\n    \"documents_indexed\": 268893\n}"
 						}
 					]
 				}

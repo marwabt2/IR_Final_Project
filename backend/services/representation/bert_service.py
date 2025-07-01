@@ -10,9 +10,16 @@ from backend.database.connection import get_mongo_connection
 from backend.services.text_processing_service import processed_text
 from backend.logger_config import logger
 
+from tqdm import tqdm
+import time
+
+for i in tqdm(range(10)):
+    time.sleep(0.5)
+
 router = APIRouter()
 
 model = SentenceTransformer("multi-qa-MiniLM-L6-cos-v1")  # optimized for retrieval
+
 
 class BERTFaissRequest(BaseModel):
     dataset_path: str
@@ -43,8 +50,8 @@ def create_bert_faiss(request: BERTFaissRequest):
     all_embeddings = []
     all_doc_ids = []
 
-    cursor = collection.find({}, {"_id": 0, "doc_id": 1, "text": 1})
-    for doc in cursor:
+    documents = list(collection.find({}, {"_id": 0, "doc_id": 1, "text": 1}))
+    for doc in documents:
         if "text" in doc and "doc_id" in doc:
             text_processed = processed_text(doc["text"])
             embedding = embed_text(text_processed)

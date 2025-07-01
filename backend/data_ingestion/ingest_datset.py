@@ -75,6 +75,6 @@ def ingest_dataset(dataset_path: str, batch_size: int = 10000):
 
 if __name__ == "__main__":
     #ingest_dataset("antique/train")
-    ingest_dataset("vaswani")
+    ingest_dataset("lotte/lifestyle/dev/forum")
 
 
