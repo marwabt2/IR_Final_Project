@@ -26,6 +26,7 @@ from backend.services.search.bert_search_service import router as bert_search_ro
 from backend.services.search.bm25_search_service import router as bm25_search_router
 from backend.services.search.hybrid_search_service import router as hybrid_search_router
 
+# from backend.services.clustering_service import router as clustering_router
 app = FastAPI()
 
 # تسجيل الروترات
@@ -40,6 +41,8 @@ app.include_router(tfidf_search_router)
 app.include_router(bert_search_router)
 app.include_router(bm25_search_router)
 app.include_router(hybrid_search_router)
+
+# app.include_router(clustering_router)
 
 class DatasetPathRequest(BaseModel):
     dataset_path: str

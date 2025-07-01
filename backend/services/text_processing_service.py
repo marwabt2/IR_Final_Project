@@ -9,10 +9,10 @@ from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 import unicodedata
 import contractions
 from textblob import TextBlob
-import spacy
+# import spacy
 
 # Load spaCy model for advanced text processing
-nlp = spacy.load('en_core_web_sm')
+# nlp = spacy.load('en_core_web_sm')
 # with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
 #           encoding='utf-8') as file:
 #     words_to_remove = file.read().splitlines()

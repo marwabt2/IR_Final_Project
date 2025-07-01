@@ -7,6 +7,7 @@ from sklearn.cluster import MiniBatchKMeans
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 from umap import UMAP
 import matplotlib.pyplot as plt
+from backend.logger_config import logger
 
 router = APIRouter()
 
@@ -17,8 +18,9 @@ class FullPipelineRequest(BaseModel):
     max_iter: int = 100
     top_terms: int = 10
 
-@router.post("/tfidf/full-pipeline")
+@router.post("/clustering")
 def full_clustering_pipeline(request: FullPipelineRequest):
+    logger.info(f"Clustering start on dataset: {request.dataset_path}")
     safe_path = request.dataset_path.replace("/", "__")
     base_dir = os.path.join("db", safe_path)
     image_path = os.path.join(base_dir, "cluster_plot.png")

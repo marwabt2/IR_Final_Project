@@ -8,12 +8,6 @@ from backend.database.connection import get_mongo_connection
 from backend.logger_config import logger
 from backend.services.text_processing_service import bm25_processed_text
 
-from tqdm import tqdm
-import time
-
-for i in tqdm(range(10)):
-    time.sleep(0.5)
-
 router = APIRouter()
 
 class WeightedIndexRequest(BaseModel):
