@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -104,6 +104,66 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": \"✅ TF-IDF built successfully on dataset: lotte/lifestyle/dev/forum\",\n    \"documents\": 268893\n}"
+						},
+						{
+							"name": "create-tfidf",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tfidf/build",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tfidf",
+										"build"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 06:55:57 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "87"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"✅ TF-IDF built successfully on dataset: antique/train\",\n    \"documents\": 403666\n}"
 						}
 					]
 				},
@@ -120,7 +180,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\",\r\n    \"query\" :\"are zebra loaches safe with shrimp\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\",\r\n    \"query\" :\"Why doesn't the water fall off  earth if it's round?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,6 +257,63 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"top_documents\": [\n        {\n            \"pid\": \"7323\",\n            \"text\": \"I made the mistake of keeping Kouli Loaches in a 55 gal heavily planted tank with Amano shrimp. I added several shrimp 3 times and they would just disappear. I thought they were just finding good hiding places until late one night I was watching and one of my loaches attacked and ate an Amano shrimp. They might be compatible at first until the loaches grow large enough to eat the shrimp.\"\n        },\n        {\n            \"pid\": \"3811\",\n            \"text\": \"The key word you used was Loaches. Any shrimp you put in that tank are immediately an expensive fancy dinner. Loaches will flip them and rip them out of their shells just like they were snails. Loaches and invertebrates just don't mix. Mollies will eat all but the largest shrimp as well. I've had this experience personally as I watched one devour my red crystals.\"\n        },\n        {\n            \"pid\": \"6305\",\n            \"text\": \"Shrimp won't cause any noticeable bioload in a tank, especially a 60l one, and they won't 'stress out' any inhabitants other than solo fish, such as a betta, which shouldn't really have anything sharing the tank with it anyway. As for using them as food, I'm not sure it'd work - if you fish don't actively eat the shrimp currently, then they are unlikely to be bothered about eating them once they are dead either as they are likely herbivores If you happen to have another tank that has loaches in (I know both Pakistani and Clown loaches will) they will eat shrimps and snails quite happily.\"\n        },\n        {\n            \"pid\": \"619\",\n            \"text\": \"Amano shrimp are good tank mates for community fish. They'll ignore your fish altogether. And they eat algae 24x7, which never hurts. Amano shrimp require brackish water for breeding, so won't breed in most tanks. This also makes them difficult to find. Cherry shrimp (and their color varieties) will also be no threat to your fish. But, they are very small, so aggressive fish (barbs, for example) may go after them. They breed quite easily and rapidly, so if you want more of them make sure you have plenty of hiding places for the young shrimp. Cherry shrimp are also algae eaters, though being so small you'll need huge quantities of them to have an real impact if algae controll is a goal. Really, for most shrimp in tanks, the issue isn't if they are a danger to the fish, but if the fish will be a danger to the shrimps. Even larger shrimp may find their extremities and tails the target of nipping. The tetras shouldn't be a problem for the shrimp, but the loaches may go after them. Edit: One heads up about shrimp (and most aquarium invertebrates, actually). A lot of medications and chemicals you might use in a tank are poisonous to them. So once they are in there, you'll need to be extra careful with what you put into the tank, and check that it is safe for shrimp.\"\n        },\n        {\n            \"pid\": \"5178\",\n            \"text\": \"I don't have any experience with ghost shrimp, but I do have cherry shrimps. And it seems like they are pretty much alike in behaviour, size, care taking, ... Shrimp are a lot different than fish, their bio footprint is a lot lower, they are a lot smaller,... So I would not use such calculators to see how many you can have. They usually just take the size of the fish and do some calculations (which is not a good way anyway). This site seems to have some good information about ghost shrimp and it mentions 10 shrimp/gallon. But I agree with Karl's comment above: it doesn't really matter. But make sure you have more shrimp than tetra's. Actually I would say: the more shrimp the better. I've got a 30 litre (8 gallon) tank with only cherry shrimp. I started with about 20 shrimp I believe (1.5 year ago). Now I probably have close to 100. But I don't have the feeling it is overstocked. They're always spread out over the tank or swimming around. It's only when I feed them that they all come to the same place and you actually see how many there are. I also have a 180 litres (47 gallon) tank with some corrydoras, tetra's and a betta in which I added about 15 shrimp a couple of months ago. I have no idea how many shrimp I have now (lot's of hiding places), but I always have about 10 in sight. So I'm sure those 15 shrimp were enough to keep the population steady (and growing). So for you, it would start with at least 10-15 shrimp and see how it goes. And I would not worry too much about having to do population control. More baby shrimp will also mean that more will be eaten by the tetra's anyway (becasue they will be easier to spot by them).\"\n        },\n        {\n            \"pid\": \"4573\",\n            \"text\": \"I actually have 4 Yoyo loaches, two cory dorus (SP) and 5 cherry shrimp. So far, for the past 3 months, my shrimp have been fine so far. My tank is heavily planted with moss and various other plants which obviously helps. Also, my Yoyo's are well fed and there are plenty of pest snails to keep them happy - shrimp can move pretty fast when they want to so its easier for them to eat the snails than chase the shrimp. Good luck\"\n        },\n        {\n            \"pid\": \"5159\",\n            \"text\": \"Neon tetras will indeed eat baby shrimp. So they can be used for population control. But keep in mind that you do have to try to keep some of the babies alive. Otherwise you might end up without any shrimp after a while. From your other post, it seems like your tank won't have many hiding places for the shrimp. So you might want to add a few real plants and moss (shrimp will love this) and a shrimp cave. Especially when shrimp are shedding their skin, they are more vulnerable and also need a more quiet place to hide.\"\n        },\n        {\n            \"pid\": \"70166\",\n            \"text\": \"Live shrimp are just that, alive. You can use the fact that they are alive to determine that they are reasonably safe to eat. However frozen shrimp do not have that built-in check. The FDA and other agencies will \\\"police\\\" commercially available frozen shrimp, but they don't do anything for bait shrimp. Frozen bait shrimp are usually the dead, dying, or otherwise discarded live bait shrimp. It's not uncommon for a bait shop to sell live shrimp, then take all the dead \\\"floaters\\\" and sell them as frozen shrimp. Again, quite safe for bait, not so good for eating. Bait shrimp you freeze yourself has a similar issue. If you're eating the live bait shrimp, then you know, for a fact, how old and what condition the shrimp are in. If you happen to have a bait-well full of dead shrimp and freeze it, (again that's fine for bait,) you have no idea why the shrimp died. Moreover, if you \\\"collect\\\" frozen shrimp between trips, you probably didn't bother to mark the freeze date or freeze the shrimp quickly, or a bunch of other things. In essence, live shrimp you take from the bait-well and boil or try, you know the state of. Frozen (bait) shrimp has been rolling around in the freezer for an unknown amount of time. Well better that one just be bait. Now you could eat the frozen shrimp if you take great care in freezing it. But again, that's not usually what happens. http://myfwc.com/research/saltwater/crustaceans/shrimp/faq/ http://floridahillbilly.com/eating-bait-shrimp/\"\n        },\n        {\n            \"pid\": \"9556\",\n            \"text\": \"I'll preface with the fact that I have not kept shrimp for very long, and I've not bred them. But I have done a lot of research on the fact (as much as I could, there's not a lot of easily accessible, reliable resources out there), since keeping varying types of shrimp together runs a number of breeding risks. You really can't tell who bred with who at this point, not until the shrimp eggs hatch, and the shrimps mature, which is only a matter of about 2 months (varies per type). Have you sexed your shrimp? You could make an educated guess based on your female to male ratios. (I.e., if your 1 Red Rili was female, you can remove that shrimp as a possible parent of your current eggs.) It's important to know that it's not uncommon for crossbred (breeding between different species) shrimp to return to \\\"wild\\\" coloring (brown), instead of taking on one of a parent's trait. Interbreeding (breeding between same species) is more likely to keep the vibrant colors. There's a number of helpful interbreeding and crossbreeding charts you should check out, which can help you narrow down if who might have bred with who, if some parings wouldn't be possible. I felt that this article was particularly useful, and has a chart linked at the end: Interbreeding Chart. For example: it is possible for your Blue Velvet to have bred with your Red Cherry, but is highly likely to produce a brown shrimp. (a lot of shrimp have varying names, or are falsely labeled, so you may need to look up the specific genus of each of your shrimp to match them up on that chart.) I'd also like to note that, if you have a fish that is killing your shrimp, the baby shrimp may not live long enough for you to tell. I would recommend keeping your breeding and baby shrimp separate from the fish.\"\n        },\n        {\n            \"pid\": \"2763\",\n            \"text\": \"Shrimp are more active at lower lighting and during complete blackouts (nighttime). If you would leave your light on for the entire day, they will go into hiding and become stressed. They will start losing color and eventually die. Not only your shrimp will suffer but you will almost certainly get a lot of algae. A source: http://www.redcherryshrimp.net/shrimp-information/beginner-guide-101/starting-out-with-red-cherry-shrimp-rcs/ + experience breeding and keeping shrimp\"\n        }\n    ],\n    \"cosine_similarities\": [\n        0.608353928744968,\n        0.5893379585375014,\n        0.475385651361236,\n        0.45831834901554036,\n        0.432496621515258,\n        0.42458245511632253,\n        0.42351771304345137,\n        0.41369686529779653,\n        0.4002082367768299,\n        0.39070911921975904\n    ],\n    \"top_documents_indices\": [\n        7323,\n        3811,\n        6305,\n        619,\n        5178,\n        4573,\n        5159,\n        70166,\n        9556,\n        2763\n    ]\n}"
+						},
+						{
+							"name": "search-tfidf",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\",\r\n    \"query\" :\"Why doesn't the water fall off  earth if it's round?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/tfidf/search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tfidf",
+										"search"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 07:46:43 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "1288"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"top_documents\": [\n        {\n            \"pid\": \"1178326_1\",\n            \"text\": \"What?!! the earth is round?? No way!!\"\n        },\n        {\n            \"pid\": \"714612_0\",\n            \"text\": \"This goes along with the question of why don't we fall off the earth if it is round. The answer is because gravity is holding us (and the water) down.\"\n        },\n        {\n            \"pid\": \"3069999_1\",\n            \"text\": \"if man were on the moon, you'd be asking why he wasn't on the earth. and it goes round and round and round...\"\n        },\n        {\n            \"pid\": \"1802263_13\",\n            \"text\": \"The earth is round and there's wind.  :o)\"\n        },\n        {\n            \"pid\": \"817286_2\",\n            \"text\": \"round\"\n        },\n        {\n            \"pid\": \"1136432_0\",\n            \"text\": \"If it is round?\"\n        },\n        {\n            \"pid\": \"1376425_3\",\n            \"text\": \"2.4 rounded of is 2.. . 2.4 + 2.4 is 4.8.. . 4.8 rounded of is 5.\"\n        },\n        {\n            \"pid\": \"714612_7\",\n            \"text\": \"because there is no gravity strong enough around earth for water to fall of the earth\"\n        },\n        {\n            \"pid\": \"839374_0\",\n            \"text\": \"round covers won't fall through. if they were square they could easily fall through the opening\"\n        },\n        {\n            \"pid\": \"1369513_10\",\n            \"text\": \"gravity is pulling us to the earth that's why we don't fall off!!\"\n        }\n    ],\n    \"cosine_similarities\": [\n        0.6593580522496122,\n        0.6371317917022817,\n        0.6276972011564659,\n        0.5613540313777221,\n        0.5570154671311052,\n        0.5570154671311052,\n        0.5570154671311052,\n        0.529256420260931,\n        0.5097944056731649,\n        0.503648147490022\n    ],\n    \"top_documents_indices\": [\n        32708,\n        41898,\n        199841,\n        250932,\n        225094,\n        59655,\n        288601,\n        41905,\n        341977,\n        255256\n    ]\n}"
 						}
 					]
 				},
@@ -213,7 +330,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -290,6 +407,63 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"average_precision\": 0.49803921568627446,\n    \"average_recall\": 0.49803921568627446,\n    \"average_map_score\": 0.5635681216931216,\n    \"average_mrr\": 0.588562091503268\n}"
+						},
+						{
+							"name": "eval-tfidf",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/tfidf/eval",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tfidf",
+										"eval"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 07:35:27 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "148"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"average_precision\": 0.5655555555555555,\n    \"average_recall\": 0.5655555555555555,\n    \"average_map_score\": 0.7122262867080988,\n    \"average_mrr\": 0.8165145502645502\n}"
 						}
 					]
 				}
@@ -375,7 +549,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -418,7 +592,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -501,6 +675,66 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": \"BM25 created successfully\",\n    \"documents_processed\": 268892\n}"
+						},
+						{
+							"name": "create-bm25",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/bm25/build",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"bm25",
+										"build"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 07:54:22 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "67"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"BM25 created successfully\",\n    \"documents_processed\": 401841\n}"
 						}
 					]
 				},
@@ -511,7 +745,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\",\r\n    \"query\" :\"Why doesn't the water fall off  earth if it's round?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -534,7 +768,116 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "search-bm25",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\",\r\n    \"query\" :\"are zebra loaches safe with shrimp\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/bm25/search",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"bm25",
+										"search"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 01:07:42 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "9475"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"top_documents\": [\n        {\n            \"doc_id\": \"7323\",\n            \"score\": 0.06923867762088776,\n            \"text\": \"I made the mistake of keeping Kouli Loaches in a 55 gal heavily planted tank with Amano shrimp. I added several shrimp 3 times and they would just disappear. I thought they were just finding good hiding places until late one night I was watching and one of my loaches attacked and ate an Amano shrimp. They might be compatible at first until the loaches grow large enough to eat the shrimp.\"\n        },\n        {\n            \"doc_id\": \"7794\",\n            \"score\": -0.8736913204193115,\n            \"text\": \"Mine does! I had a betta for more than four years and he died a few months ago. He happily shared his 3.5 gallon (13 liters) habitat with some ghost shrimp and a zebra snail. I recently replaced the betta and the new one will not leave the zebra snail alone - always flaring, swimming around him and nipping at his shell. The snail (about 1.5 inch / 3.8 cm long) doesn't seem to care and will hopefully be fine. I don't know what to do to get the fish to leave him alone!\"\n        },\n        {\n            \"doc_id\": \"4573\",\n            \"score\": -0.9236429929733276,\n            \"text\": \"I actually have 4 Yoyo loaches, two cory dorus (SP) and 5 cherry shrimp. So far, for the past 3 months, my shrimp have been fine so far. My tank is heavily planted with moss and various other plants which obviously helps. Also, my Yoyo's are well fed and there are plenty of pest snails to keep them happy - shrimp can move pretty fast when they want to so its easier for them to eat the snails than chase the shrimp. Good luck\"\n        },\n        {\n            \"doc_id\": \"6305\",\n            \"score\": -1.3637139797210693,\n            \"text\": \"Shrimp won't cause any noticeable bioload in a tank, especially a 60l one, and they won't 'stress out' any inhabitants other than solo fish, such as a betta, which shouldn't really have anything sharing the tank with it anyway. As for using them as food, I'm not sure it'd work - if you fish don't actively eat the shrimp currently, then they are unlikely to be bothered about eating them once they are dead either as they are likely herbivores If you happen to have another tank that has loaches in (I know both Pakistani and Clown loaches will) they will eat shrimps and snails quite happily.\"\n        },\n        {\n            \"doc_id\": \"3811\",\n            \"score\": -2.1030068397521973,\n            \"text\": \"The key word you used was Loaches. Any shrimp you put in that tank are immediately an expensive fancy dinner. Loaches will flip them and rip them out of their shells just like they were snails. Loaches and invertebrates just don't mix. Mollies will eat all but the largest shrimp as well. I've had this experience personally as I watched one devour my red crystals.\"\n        },\n        {\n            \"doc_id\": \"619\",\n            \"score\": -4.119870185852051,\n            \"text\": \"Amano shrimp are good tank mates for community fish. They'll ignore your fish altogether. And they eat algae 24x7, which never hurts. Amano shrimp require brackish water for breeding, so won't breed in most tanks. This also makes them difficult to find. Cherry shrimp (and their color varieties) will also be no threat to your fish. But, they are very small, so aggressive fish (barbs, for example) may go after them. They breed quite easily and rapidly, so if you want more of them make sure you have plenty of hiding places for the young shrimp. Cherry shrimp are also algae eaters, though being so small you'll need huge quantities of them to have an real impact if algae controll is a goal. Really, for most shrimp in tanks, the issue isn't if they are a danger to the fish, but if the fish will be a danger to the shrimps. Even larger shrimp may find their extremities and tails the target of nipping. The tetras shouldn't be a problem for the shrimp, but the loaches may go after them. Edit: One heads up about shrimp (and most aquarium invertebrates, actually). A lot of medications and chemicals you might use in a tank are poisonous to them. So once they are in there, you'll need to be extra careful with what you put into the tank, and check that it is safe for shrimp.\"\n        },\n        {\n            \"doc_id\": \"5702\",\n            \"score\": -4.189998626708984,\n            \"text\": \"As you've already pointed out, the best course of action is to quarantine the fish. If you really can't do this then you'll need to tread carefully with medicines if you have any invertebrates (snails, shrimp) or fish without scales (bristlenose catfish, loaches, etc.). Ultimately, this comes down to reading the label of the medicine. There is such a smorgasbord of different medicines that it's difficult to put a hard and fast rule on which to use (they almost always warn you about the fish that might react adversely). While reading the label, you'll definitely want to check that the medicine \\\"doesn't harm your filter\\\" and whilst many claim they won't, there is a chance that it could negatively impact your beneficial bacteria anyway. Remember that when you add medicine to a tank, you change what the water contains. This can be stressful for fish which are healthy or fighting off an issue already. I've had great success with Melafix and Pimafix together as a 'general cure' and my catfish, snails and loaches have not had any issue. Whether this will work for dropsy on an older fish anyway, that's difficult to say. As ever, my overriding advice would be to keep your water quality as clean and consistent as you possibly can during periods of ill-health. The consistency is important because big changes in your water can tip sick fish over the edge. Finally, older or stressed fish can become more susceptible to ill health which might explain why dropsy (normally occurring in poor water conditions) has happened in a tank with good quality. After thought: Remember the cost of this! Medicating a whole tank can be much more expensive than medicating a smaller tank.\"\n        },\n        {\n            \"doc_id\": \"70166\",\n            \"score\": -5.462036609649658,\n            \"text\": \"Live shrimp are just that, alive. You can use the fact that they are alive to determine that they are reasonably safe to eat. However frozen shrimp do not have that built-in check. The FDA and other agencies will \\\"police\\\" commercially available frozen shrimp, but they don't do anything for bait shrimp. Frozen bait shrimp are usually the dead, dying, or otherwise discarded live bait shrimp. It's not uncommon for a bait shop to sell live shrimp, then take all the dead \\\"floaters\\\" and sell them as frozen shrimp. Again, quite safe for bait, not so good for eating. Bait shrimp you freeze yourself has a similar issue. If you're eating the live bait shrimp, then you know, for a fact, how old and what condition the shrimp are in. If you happen to have a bait-well full of dead shrimp and freeze it, (again that's fine for bait,) you have no idea why the shrimp died. Moreover, if you \\\"collect\\\" frozen shrimp between trips, you probably didn't bother to mark the freeze date or freeze the shrimp quickly, or a bunch of other things. In essence, live shrimp you take from the bait-well and boil or try, you know the state of. Frozen (bait) shrimp has been rolling around in the freezer for an unknown amount of time. Well better that one just be bait. Now you could eat the frozen shrimp if you take great care in freezing it. But again, that's not usually what happens. http://myfwc.com/research/saltwater/crustaceans/shrimp/faq/ http://floridahillbilly.com/eating-bait-shrimp/\"\n        },\n        {\n            \"doc_id\": \"7103\",\n            \"score\": -5.62685489654541,\n            \"text\": \"This article has several good suggestions for potential betta tankmates. It also mentions: Please remember that the ideas below are suggestions. Your betta may get along just fine with all of these new tankmates, or he might kill and eat them. Every betta is different, and these are just general guidelines. It sounds like your betta is potentially aggressive, so please don't try to socialize her without supervision. My betta has never tried to eat his tankmates of several months, which are a zebra snail and four ghost shrimp in a five-gallon tank. It seems like more information might be helpful: What size tank do you have, and do you know the species of the snail you're trying to introduce?\"\n        },\n        {\n            \"doc_id\": \"451\",\n            \"score\": -5.691784858703613,\n            \"text\": \"You might consider adding a few Assassin Snails to the tank. I had a rapidly growing population of pond and ramshorn snails after I had introduced some plants into my tank, and was looking for a solution. I saw them at the local pet place when I was out looking for loaches, and after a bit of research decided to give them a try. Assassin snails are actually fresh water Whelks... and are quite carnivorous. Once placed in the tank, the three of them I had brought home commenced what I can only describe as a war crime against the native snail population. Within about 6-8 weeks they had wiped out the snails. The substrate was littered with empty pond snail shells. There was not a snail to be seen. I am starting to see some ramshorn snails pop back into the picture now. But I havent seen a pond snail for a good 8 months. They are harmless to fish and shrimp. Though I imagine they will go after any fish or shrimp eggs they come across. They're also very fun to watch. They move across the substrate awkwardly like Jawa Sandcrawler, sticking their proboscis out looking for prey. They move slow, but steadily. If you keep an eye out, you might actually catch them in the act of stalking and capturing a snail.\"\n        }\n    ],\n    \"cosine_similarities\": [\n        0.06923867762088776,\n        -0.8736913204193115,\n        -0.9236429929733276,\n        -1.3637139797210693,\n        -2.1030068397521973,\n        -4.119870185852051,\n        -4.189998626708984,\n        -5.462036609649658,\n        -5.62685489654541,\n        -5.691784858703613\n    ],\n    \"top_documents_indices\": [\n        7323,\n        7794,\n        4573,\n        6305,\n        3811,\n        619,\n        5702,\n        70166,\n        7103,\n        451\n    ]\n}"
+						},
+						{
+							"name": "search-bm25",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\",\r\n    \"query\" :\"Why doesn't the water fall off  earth if it's round?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/bm25/search",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"bm25",
+										"search"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 11:22:43 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "2617"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"top_documents\": [\n        {\n            \"doc_id\": \"714612_0\",\n            \"score\": 8.948556900024414,\n            \"text\": \"This goes along with the question of why don't we fall off the earth if it is round. The answer is because gravity is holding us (and the water) down.\"\n        },\n        {\n            \"doc_id\": \"2781942_4\",\n            \"score\": 5.153530597686768,\n            \"text\": \"Water doesn't spill off of the earth because there is gravity in the center of the earth that holds down the water.\"\n        },\n        {\n            \"doc_id\": \"714612_7\",\n            \"score\": 3.7185094356536865,\n            \"text\": \"because there is no gravity strong enough around earth for water to fall of the earth\"\n        },\n        {\n            \"doc_id\": \"1375616_4\",\n            \"score\": -0.5035662651062012,\n            \"text\": \"They are meteorites that have come into the Earth atmosphere and light up because of the friction that they have with the Earthâ€™s atmosphere.  They do not always fall to the ground though, some times they skip off the atmosphere like a flat stone skips off of a body of water when thrown correctly, other times it burns up before it reaches the ground.\"\n        },\n        {\n            \"doc_id\": \"72439_7\",\n            \"score\": -0.8998099565505981,\n            \"text\": \"Manhole covers are round so that they would not fall into the hole. If it were a sqaure, the cover could fall in if placed diagonally. If it were a triagle, the cover could just fall in perpendicularly. However, if it were a circle, it cannot fall in because it is the same shape all round. No matter what angle, it cannot fall in.\"\n        },\n        {\n            \"doc_id\": \"597650_0\",\n            \"score\": -1.829934000968933,\n            \"text\": \"no its not that there was no water, its that all the land was one peice with water all a round it.\"\n        },\n        {\n            \"doc_id\": \"790907_0\",\n            \"score\": -2.0300092697143555,\n            \"text\": \"because it's impossible to drop the manhole cover down the hole if it is round.. . If it's square, it very easy to drop the cover down the hole by popping it in diagonally. You can't with a circular one.\"\n        },\n        {\n            \"doc_id\": \"84696_8\",\n            \"score\": -2.371826648712158,\n            \"text\": \"Why is the earth round?  man i have no idea, but its funny how perfectly circular some things can be\"\n        },\n        {\n            \"doc_id\": \"802342_1\",\n            \"score\": -5.043830394744873,\n            \"text\": \"the water on the ground evaporates and it travels up; the water droplets gather and freeze, into snow.  If it is cold enough, it will precipitate as snow.\"\n        },\n        {\n            \"doc_id\": \"954380_3\",\n            \"score\": -5.80147647857666,\n            \"text\": \"the span across a wide area.  the earth is round, the horizon is round. light is bent by the shape of the earth\"\n        }\n    ],\n    \"cosine_similarities\": [\n        8.948556900024414,\n        5.153530597686768,\n        3.7185094356536865,\n        -0.5035662651062012,\n        -0.8998099565505981,\n        -1.829934000968933,\n        -2.0300092697143555,\n        -2.371826648712158,\n        -5.043830394744873,\n        -5.80147647857666\n    ],\n    \"top_documents_indices\": [\n        41712,\n        46086,\n        41719,\n        7835,\n        382182,\n        231746,\n        70818,\n        367970,\n        20397,\n        41900\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "eval-bm25",
@@ -543,7 +886,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"vaswani\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -566,7 +909,116 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "eval-bm25",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/bm25/eval",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"bm25",
+										"eval"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Tue, 01 Jul 2025 22:15:07 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "148"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"average_precision\": 0.5363095238095239,\n    \"average_recall\": 0.5363095238095239,\n    \"average_map_score\": 0.7422028533635676,\n    \"average_mrr\": 0.7732048374905518\n}"
+						},
+						{
+							"name": "eval-bm25",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/bm25/eval",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"bm25",
+										"eval"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 08:12:03 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "148"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"average_precision\": 0.5756613756613757,\n    \"average_recall\": 0.5756613756613757,\n    \"average_map_score\": 0.6927056430057815,\n    \"average_mrr\": 0.7920277987738303\n}"
+						}
+					]
 				}
 			]
 		},
@@ -877,7 +1329,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -954,6 +1406,60 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": \"Weighted inverted index created successfully\",\n    \"terms_count\": 165278\n}"
+						},
+						{
+							"name": "create-weighted-inverted-index",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/weighted_index/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"weighted_index",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 07:47:44 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "78"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Weighted inverted index created successfully\",\n    \"terms_count\": 144621\n}"
 						}
 					]
 				},
@@ -964,7 +1470,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1041,8 +1547,200 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": \"BM25 weighted inverted index created successfully\",\n    \"terms_count\": 300982,\n    \"documents_indexed\": 268893\n}"
+						},
+						{
+							"name": "create-bm25_weighted-inverted-index",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/weighted_index/create_bm25",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"weighted_index",
+										"create_bm25"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 02 Jul 2025 08:00:11 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "110"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"BM25 weighted inverted index created successfully\",\n    \"terms_count\": 269269,\n    \"documents_indexed\": 403666\n}"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "clustering",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dataset_path\": \"antique/train\",\r\n  \"num_clusters\": 3,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/clustering",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"clustering"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "clustering",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dataset_path\": \"lotte/lifestyle/dev/forum\",\r\n  \"num_clusters\": 5,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\", \"example query\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/clustering",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"clustering"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 01 Jul 2025 13:45:44 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "694"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"Done clustering\",\n    \"silhouette_score\": 0.2850658551572127,\n    \"davies_bouldin_index\": 0.899262244614947,\n    \"calinski_harabasz_index\": 3739.6061874813886,\n    \"num_clusters\": 5,\n    \"top_terms_per_cluster\": {\n        \"0\": [\n            \"get\",\n            \"use\",\n            \"water\",\n            \"bike\",\n            \"would\",\n            \"one\",\n            \"like\",\n            \"need\",\n            \"time\",\n            \"wa\"\n        ],\n        \"1\": [\n            \"use\",\n            \"water\",\n            \"need\",\n            \"like\",\n            \"would\",\n            \"one\",\n            \"get\",\n            \"could\",\n            \"may\",\n            \"engin\"\n        ],\n        \"2\": [\n            \"note\",\n            \"use\",\n            \"like\",\n            \"play\",\n            \"get\",\n            \"string\",\n            \"child\",\n            \"would\",\n            \"time\",\n            \"one\"\n        ],\n        \"3\": [\n            \"wire\",\n            \"switch\",\n            \"ground\",\n            \"neutral\",\n            \"breaker\",\n            \"circuit\",\n            \"box\",\n            \"connect\",\n            \"light\",\n            \"hot\"\n        ],\n        \"4\": [\n            \"chord\",\n            \"play\",\n            \"note\",\n            \"music\",\n            \"scale\",\n            \"major\",\n            \"minor\",\n            \"key\",\n            \"string\",\n            \"finger\"\n        ]\n    },\n    \"plot_image_path\": \"db\\\\lotte__lifestyle__dev__forum\\\\clusters_plot.png\",\n    \"query_predictions\": [\n        1,\n        1\n    ]\n}"
+				},
+				{
+					"name": "clustering",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dataset_path\": \"antique/train\",\r\n  \"num_clusters\": 3,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/clustering",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"clustering"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Wed, 02 Jul 2025 08:10:17 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "497"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"Done clustering\",\n    \"silhouette_score\": 0.5063548725621567,\n    \"davies_bouldin_index\": 0.6932210940277228,\n    \"calinski_harabasz_index\": 4952.541523803283,\n    \"num_clusters\": 3,\n    \"top_terms_per_cluster\": {\n        \"0\": [\n            \"like\",\n            \"get\",\n            \"peopl\",\n            \"go\",\n            \"one\",\n            \"becaus\",\n            \"thi\",\n            \"would\",\n            \"know\",\n            \"good\"\n        ],\n        \"1\": [\n            \"becaus\",\n            \"use\",\n            \"get\",\n            \"mean\",\n            \"ha\",\n            \"one\",\n            \"wa\",\n            \"water\",\n            \"thi\",\n            \"like\"\n        ],\n        \"2\": [\n            \"you\",\n            \"are\",\n            \"god\",\n            \"want\",\n            \"do\",\n            \"know\",\n            \"tell\",\n            \"would\",\n            \"becaus\",\n            \"onli\"\n        ]\n    },\n    \"plot_image_path\": \"db\\\\antique__train\\\\clusters_plot.png\",\n    \"query_predictions\": [\n        1\n    ]\n}"
 				}
 			]
 		}
