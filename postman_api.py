@@ -26,7 +26,7 @@ from backend.services.search.bert_search_service import router as bert_search_ro
 from backend.services.search.bm25_search_service import router as bm25_search_router
 from backend.services.search.hybrid_search_service import router as hybrid_search_router
 
-# from backend.services.clustering_service import router as clustering_router
+from backend.services.clustering_service import router as clustering_router
 app = FastAPI()
 
 # تسجيل الروترات
@@ -42,7 +42,7 @@ app.include_router(bert_search_router)
 app.include_router(bm25_search_router)
 app.include_router(hybrid_search_router)
 
-# app.include_router(clustering_router)
+app.include_router(clustering_router)
 
 class DatasetPathRequest(BaseModel):
     dataset_path: str
@@ -100,10 +100,11 @@ async def evaluate_search(request: DatasetPathRequest, search_api_url: str):
     data = pd.DataFrame({"pid": pids, "text": texts})
     data.dropna(subset=['text'], inplace=True)
     data["pid"] = data["pid"].astype(str)  # ← تأكيد
-
     queries_paths = ''
     if request.dataset_path == 'lotte/lifestyle/dev/forum':
         queries_paths = r'C:\Users\USER\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl'
+    if request.dataset_path == 'antique/train':
+        queries_paths = r'C:\Users\USER\.ir_datasets\antique\test\Answers.jsonl'
 
     queries = load_queries([queries_paths])
 
@@ -184,9 +185,7 @@ async def bm25_eval(request: DatasetPathRequest):
 async def hybrid_eval(request: DatasetPathRequest):
     return await evaluate_search(request, "http://localhost:8000/hybrid/search")
 
-@app.post("/hybrid2/eval")
-async def hybrid2_eval(request: DatasetPathRequest):
-    return await evaluate_search(request, "http://localhost:8000/hybrid2/search")
+
 
 
 

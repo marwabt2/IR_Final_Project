@@ -74,7 +74,7 @@ def ingest_dataset(dataset_path: str, batch_size: int = 10000):
         logger.error(f"🔥 Error during ingestion of '{dataset_path}': {str(e)}")
 
 if __name__ == "__main__":
-    #ingest_dataset("antique/train")
-    ingest_dataset("lotte/lifestyle/dev/forum")
+    ingest_dataset("antique/train")
+    # ingest_dataset("lotte/lifestyle/dev/forum")
 
 
