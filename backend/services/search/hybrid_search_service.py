@@ -129,22 +129,21 @@ from pydantic import BaseModel
 from sklearn.preprocessing import normalize
 from sentence_transformers.cross_encoder import CrossEncoder
 
-from backend.services.text_processing_service import processed_text,TextProcessor
+from backend.services.text_processing_service import processed_text, TextProcessor
 from backend.services.representation.bert_service import embed_text
 from backend.database.connection import get_mongo_connection
 from backend.logger_config import logger
 
 router = APIRouter()
 
-# كاش ثابت
+# كاش
 vectorizer_cache = {}
-doc_ids_cache = {}
+svd_cache = {}
+hybrid_doc_ids_cache = {}
 faiss_index_cache = {}
-bert_doc_ids_cache = {}
 
-# تحميل CrossEncoder مرة واحدة
+# تحميل CrossEncoder
 cross_encoder = CrossEncoder("models/msmarco_cross_encoder")
-
 
 class HybridSearchRequest(BaseModel):
     query: str
@@ -153,39 +152,29 @@ class HybridSearchRequest(BaseModel):
     top_k: int = 100
     rerank_k: int = 500
 
-
 def get_vectorizer(dataset_path):
     if dataset_path not in vectorizer_cache:
-        safe = dataset_path.replace("/", "__")
-        path = os.path.join("db", safe, "vectorizer.joblib")
+        path = os.path.join("db", dataset_path.replace("/", "__"), "vectorizer.joblib")
         vectorizer_cache[dataset_path] = joblib.load(path)
     return vectorizer_cache[dataset_path]
 
+def get_svd(dataset_path):
+    if dataset_path not in svd_cache:
+        path = os.path.join("db", dataset_path.replace("/", "__"), "svd_model.joblib")
+        svd_cache[dataset_path] = joblib.load(path)
+    return svd_cache[dataset_path]
 
 def get_doc_ids(dataset_path):
-    if dataset_path not in doc_ids_cache:
-        safe = dataset_path.replace("/", "__")
-        path = os.path.join("db", safe, "doc_ids.joblib")
-        doc_ids_cache[dataset_path] = joblib.load(path)
-    return doc_ids_cache[dataset_path]
-
-
-def get_bert_doc_ids(dataset_path):
-    if dataset_path not in bert_doc_ids_cache:
-        safe = dataset_path.replace("/", "__")
-        path = os.path.join("db", safe, "bert_doc_ids.joblib")
-        bert_doc_ids_cache[dataset_path] = joblib.load(path)
-    return bert_doc_ids_cache[dataset_path]
-
+    if dataset_path not in hybrid_doc_ids_cache:
+        path = os.path.join("db", dataset_path.replace("/", "__"), "hybrid_doc_ids.joblib")
+        hybrid_doc_ids_cache[dataset_path] = joblib.load(path)
+    return hybrid_doc_ids_cache[dataset_path]
 
 def get_faiss_index(dataset_path):
     if dataset_path not in faiss_index_cache:
-        safe = dataset_path.replace("/", "__")
-        path = os.path.join("db", safe, "hybrid_faiss.index")
-        index = faiss.read_index(path)
-        faiss_index_cache[dataset_path] = index
+        path = os.path.join("db", dataset_path.replace("/", "__"), "hybrid_faiss.index")
+        faiss_index_cache[dataset_path] = faiss.read_index(path)
     return faiss_index_cache[dataset_path]
-
 
 def load_documents_by_ids(dataset_path, doc_ids):
     db = get_mongo_connection()
@@ -197,7 +186,6 @@ def load_documents_by_ids(dataset_path, doc_ids):
             docs[doc_id] = doc["text"]
     return docs
 
-
 @router.post("/hybrid/search")
 def hybrid_search_api(request: HybridSearchRequest):
     query = request.query
@@ -207,37 +195,35 @@ def hybrid_search_api(request: HybridSearchRequest):
     rerank_k = request.rerank_k
 
     logger.info(f"Hybrid + FAISS + Cross-Encoder Search for {dataset_path}")
+
     processor = TextProcessor()
     vectorizer = get_vectorizer(dataset_path)
-    tfidf_doc_ids = get_doc_ids(dataset_path)
-    bert_doc_ids = get_bert_doc_ids(dataset_path)
+    svd = get_svd(dataset_path)
+    doc_ids = get_doc_ids(dataset_path)
+    faiss_index = get_faiss_index(dataset_path)
 
-    if tfidf_doc_ids != bert_doc_ids:
-        return {"error": "Mismatch between TF-IDF and BERT doc IDs"}
+    doc_id_to_index = {str(doc_id): i for i, doc_id in enumerate(doc_ids)}
 
-    doc_id_to_index = {str(doc_id): i for i, doc_id in enumerate(tfidf_doc_ids)}
-
-    processed_query = processed_text(query,processor)
-    query_tfidf_vector = vectorizer.transform([processed_query])
+    processed_query = processed_text(query, processor)
+    query_tfidf = vectorizer.transform([processed_query])
+    query_tfidf_reduced = svd.transform(query_tfidf)
     query_bert_vector = embed_text(processed_query).reshape(1, -1)
 
-    query_tfidf_norm = normalize(query_tfidf_vector, norm='l2', axis=1).toarray()
-    query_bert_norm = normalize(query_bert_vector, norm='l2', axis=1)
+    if query_bert_vector.shape[1] > query_tfidf_reduced.shape[1]:
+        query_bert_vector = query_bert_vector[:, :query_tfidf_reduced.shape[1]]
 
-    hybrid_query = np.concatenate([alpha * query_tfidf_norm, (1 - alpha) * query_bert_norm], axis=1)
+    hybrid_query = alpha * query_tfidf_reduced + (1 - alpha) * query_bert_vector
+    hybrid_query = hybrid_query.astype(np.float32)
 
-    index = get_faiss_index(dataset_path)
-    hybrid_query = hybrid_query.astype(np.float32).reshape(1, -1)
-    top_indices, hybrid_sim_scores = index.search(hybrid_query, rerank_k)
-
-    candidate_ids = [tfidf_doc_ids[i] for i in top_indices]
+    top_indices, hybrid_scores = faiss_index.search(hybrid_query, rerank_k)
+    candidate_ids = [doc_ids[i] for i in top_indices[0]]
     doc_texts = load_documents_by_ids(dataset_path, candidate_ids)
 
     pairs = [(query, doc_texts[doc_id]) for doc_id in candidate_ids]
     rerank_scores = cross_encoder.predict(pairs)
 
     rerank_dict = dict(zip(candidate_ids, rerank_scores))
-    hybrid_dict = dict(zip(candidate_ids, hybrid_sim_scores))
+    hybrid_dict = dict(zip(candidate_ids, hybrid_scores[0]))
 
     final_ranking = sorted(
         candidate_ids,
