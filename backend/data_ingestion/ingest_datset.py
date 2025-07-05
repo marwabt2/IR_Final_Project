@@ -1,31 +1,3 @@
-# import sys
-# import os
-# sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../.."))
-
-# import ir_datasets
-# from backend.database.connection import get_mongo_connection
-# def ingest_dataset(dataset_path: str):
-#     print(f"✅ Start Loading '{dataset_path}'")
-#     dataset = ir_datasets.load(dataset_path)
-
-#     db = get_mongo_connection()
-#     collection_name = dataset_path.replace("/", "_")
-#     collection = db[collection_name]
-
-#     count = 0
-#     for doc in dataset.docs_iter():
-#         doc_dict = {
-#             "doc_id": doc.doc_id,
-#             "text": doc.text
-#         }
-#         collection.insert_one(doc_dict)
-#         count += 1
-
-#     print(f"✅ Dataset '{dataset_path}' has been ingested into collection '{collection_name}'")
-#     print(f"✅ {count} doc has been ingested")
-# if __name__ == "__main__":
-#     ingest_dataset("antique/train")
-
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../.."))
