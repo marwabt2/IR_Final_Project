@@ -46,21 +46,28 @@ def build_hybrid_representation(request: BuildHybridRequest):
         bert_embeddings = bert_embeddings[:, :tfidf_reduced.shape[1]]
 
     hybrid_representations = tfidf_weight * tfidf_reduced + bert_weight * bert_embeddings
-
     joblib.dump(hybrid_representations, os.path.join(db_dir, "hybrid_matrix.joblib"))
     joblib.dump(docs_df["pid"].tolist(), os.path.join(db_dir, "hybrid_doc_ids.joblib"))
-
-    # ✅ Build FAISS index directly from hybrid vectors
+    # ✅ Build FAISS index from hybrid vectors
     logger.info("Building FAISS index from hybrid vectors...")
-    hybrid_matrix_norm = normalize(hybrid_representations, norm='l2', axis=1)
-    index = faiss.IndexFlatIP(hybrid_matrix_norm.shape[1])
-    index.add(hybrid_matrix_norm.astype(np.float32))
+
+    # Convert and ensure memory is contiguous
+    hybrid_matrix = np.ascontiguousarray(hybrid_representations.astype(np.float32))
+
+    # Normalize with faiss
+    faiss.normalize_L2(hybrid_matrix)
+
+    # Build index
+    index = faiss.IndexFlatIP(hybrid_matrix.shape[1])
+    index.add(hybrid_matrix)
+
     faiss_index_path = os.path.join(db_dir, "hybrid_faiss.index")
     faiss.write_index(index, faiss_index_path)
+
 
     logger.info(f"Hybrid FAISS index created at: {faiss_index_path}")
     return {
         "status": "✅ Hybrid representation + FAISS built successfully",
-        "documents": len(hybrid_representations),
-        "dimension": hybrid_representations.shape[1]
+        "documents": len(hybrid_matrix),
+        "dimension": hybrid_matrix.shape[1]
     }
