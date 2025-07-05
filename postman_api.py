@@ -83,6 +83,8 @@ def load_queries(queries_paths):
     return queries
 
 async def evaluate_search(request: DatasetPathRequest, search_api_url: str):
+    import time
+    start_time = time.time()  # ⏱️ بداية حساب الزمن
     safe_name = request.dataset_path.replace("/", "__")
     db = get_mongo_connection()
     collection_name = request.dataset_path.replace("/", "_")
@@ -162,8 +164,12 @@ async def evaluate_search(request: DatasetPathRequest, search_api_url: str):
     avg_map_score = np.mean(all_map_scores)
     avg_mrr = np.mean(all_mrrs)
 
+        # ⏱️ حساب الزمن
+    elapsed_time = time.time() - start_time
+
     print(f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}, Average MRR: {avg_mrr}")
     return JSONResponse(content={
+    "execution_time_seconds": round(elapsed_time, 3),
     "average_precision": avg_precision,
     "average_recall": avg_recall,
     "average_map_score": avg_map_score,
@@ -185,6 +191,9 @@ async def bm25_eval(request: DatasetPathRequest):
 async def hybrid_eval(request: DatasetPathRequest):
     return await evaluate_search(request, "http://localhost:8000/hybrid/search")
 
+@app.post("/tfidf/eval/clustering")
+async def search_with_clustering(request: DatasetPathRequest):
+    return await evaluate_search(request, "http://localhost:8000/tfidf/search/clustering")
 
 
 
