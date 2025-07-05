@@ -1975,90 +1975,10 @@
 		},
 		{
 			"name": "clustering",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"dataset_path\": \"antique/train\",\r\n  \"num_clusters\": 3,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\"]\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/clustering",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"clustering"
-					]
-				}
-			},
-			"response": [
+			"item": [
 				{
-					"name": "clustering",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"dataset_path\": \"lotte/lifestyle/dev/forum\",\r\n  \"num_clusters\": 5,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\", \"example query\"]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/clustering",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"clustering"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "date",
-							"value": "Tue, 01 Jul 2025 13:45:44 GMT"
-						},
-						{
-							"key": "server",
-							"value": "uvicorn"
-						},
-						{
-							"key": "content-length",
-							"value": "694"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"status\": \"Done clustering\",\n    \"silhouette_score\": 0.2850658551572127,\n    \"davies_bouldin_index\": 0.899262244614947,\n    \"calinski_harabasz_index\": 3739.6061874813886,\n    \"num_clusters\": 5,\n    \"top_terms_per_cluster\": {\n        \"0\": [\n            \"get\",\n            \"use\",\n            \"water\",\n            \"bike\",\n            \"would\",\n            \"one\",\n            \"like\",\n            \"need\",\n            \"time\",\n            \"wa\"\n        ],\n        \"1\": [\n            \"use\",\n            \"water\",\n            \"need\",\n            \"like\",\n            \"would\",\n            \"one\",\n            \"get\",\n            \"could\",\n            \"may\",\n            \"engin\"\n        ],\n        \"2\": [\n            \"note\",\n            \"use\",\n            \"like\",\n            \"play\",\n            \"get\",\n            \"string\",\n            \"child\",\n            \"would\",\n            \"time\",\n            \"one\"\n        ],\n        \"3\": [\n            \"wire\",\n            \"switch\",\n            \"ground\",\n            \"neutral\",\n            \"breaker\",\n            \"circuit\",\n            \"box\",\n            \"connect\",\n            \"light\",\n            \"hot\"\n        ],\n        \"4\": [\n            \"chord\",\n            \"play\",\n            \"note\",\n            \"music\",\n            \"scale\",\n            \"major\",\n            \"minor\",\n            \"key\",\n            \"string\",\n            \"finger\"\n        ]\n    },\n    \"plot_image_path\": \"db\\\\lotte__lifestyle__dev__forum\\\\clusters_plot.png\",\n    \"query_predictions\": [\n        1,\n        1\n    ]\n}"
-				},
-				{
-					"name": "clustering",
-					"originalRequest": {
+					"name": "create_clustering",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -2085,29 +2005,510 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "date",
-							"value": "Wed, 02 Jul 2025 08:10:17 GMT"
+							"name": "create_clustering",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dataset_path\": \"lotte/lifestyle/dev/forum\",\r\n  \"num_clusters\": 3,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/clustering",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"clustering"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 05 Jul 2025 12:09:57 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "530"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Done clustering\",\n    \"silhouette_score\": 0.22641498705541271,\n    \"davies_bouldin_index\": 1.2116102731942335,\n    \"calinski_harabasz_index\": 1145.679772716785,\n    \"num_clusters\": 3,\n    \"top_terms_per_cluster\": {\n        \"0\": [\n            \"get\",\n            \"bike\",\n            \"use\",\n            \"would\",\n            \"like\",\n            \"one\",\n            \"water\",\n            \"time\",\n            \"need\",\n            \"wa\"\n        ],\n        \"1\": [\n            \"wire\",\n            \"use\",\n            \"switch\",\n            \"need\",\n            \"one\",\n            \"would\",\n            \"light\",\n            \"like\",\n            \"water\",\n            \"ground\"\n        ],\n        \"2\": [\n            \"chord\",\n            \"play\",\n            \"note\",\n            \"music\",\n            \"string\",\n            \"major\",\n            \"scale\",\n            \"key\",\n            \"minor\",\n            \"guitar\"\n        ]\n    },\n    \"plot_image_path\": \"db\\\\lotte__lifestyle__dev__forum\\\\clusters_plot.png\",\n    \"query_predictions\": [\n        1\n    ]\n}"
 						},
 						{
-							"key": "server",
-							"value": "uvicorn"
-						},
-						{
-							"key": "content-length",
-							"value": "497"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
+							"name": "create_clustering",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dataset_path\": \"antique/train\",\r\n  \"num_clusters\": 3,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\"]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/clustering",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"clustering"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 05 Jul 2025 12:10:54 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "497"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Done clustering\",\n    \"silhouette_score\": 0.5063548725621567,\n    \"davies_bouldin_index\": 0.6932210940277228,\n    \"calinski_harabasz_index\": 4952.541523803283,\n    \"num_clusters\": 3,\n    \"top_terms_per_cluster\": {\n        \"0\": [\n            \"like\",\n            \"get\",\n            \"peopl\",\n            \"go\",\n            \"one\",\n            \"becaus\",\n            \"thi\",\n            \"would\",\n            \"know\",\n            \"good\"\n        ],\n        \"1\": [\n            \"becaus\",\n            \"use\",\n            \"get\",\n            \"mean\",\n            \"ha\",\n            \"one\",\n            \"wa\",\n            \"water\",\n            \"thi\",\n            \"like\"\n        ],\n        \"2\": [\n            \"you\",\n            \"are\",\n            \"god\",\n            \"want\",\n            \"do\",\n            \"know\",\n            \"tell\",\n            \"would\",\n            \"becaus\",\n            \"onli\"\n        ]\n    },\n    \"plot_image_path\": \"db\\\\antique__train\\\\clusters_plot.png\",\n    \"query_predictions\": [\n        1\n    ]\n}"
 						}
-					],
-					"cookie": [],
-					"body": "{\n    \"status\": \"Done clustering\",\n    \"silhouette_score\": 0.5063548725621567,\n    \"davies_bouldin_index\": 0.6932210940277228,\n    \"calinski_harabasz_index\": 4952.541523803283,\n    \"num_clusters\": 3,\n    \"top_terms_per_cluster\": {\n        \"0\": [\n            \"like\",\n            \"get\",\n            \"peopl\",\n            \"go\",\n            \"one\",\n            \"becaus\",\n            \"thi\",\n            \"would\",\n            \"know\",\n            \"good\"\n        ],\n        \"1\": [\n            \"becaus\",\n            \"use\",\n            \"get\",\n            \"mean\",\n            \"ha\",\n            \"one\",\n            \"wa\",\n            \"water\",\n            \"thi\",\n            \"like\"\n        ],\n        \"2\": [\n            \"you\",\n            \"are\",\n            \"god\",\n            \"want\",\n            \"do\",\n            \"know\",\n            \"tell\",\n            \"would\",\n            \"becaus\",\n            \"onli\"\n        ]\n    },\n    \"plot_image_path\": \"db\\\\antique__train\\\\clusters_plot.png\",\n    \"query_predictions\": [\n        1\n    ]\n}"
+					]
+				},
+				{
+					"name": "evaluate_k",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dataset_path\": \"antique/train\",\r\n  \"sample_size\": 3000,\r\n  \"min_k\": 2,\r\n  \"max_k\": 8\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/evaluate_k",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"evaluate_k"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "evaluate_k",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dataset_path\": \"lotte/lifestyle/dev/forum\",\r\n  \"sample_size\": 3000,\r\n  \"min_k\": 2,\r\n  \"max_k\": 8\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/evaluate_k",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"evaluate_k"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 05 Jul 2025 11:25:27 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "1076"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"best_k\": 5,\n    \"evaluated_scores\": [\n        {\n            \"k\": 2,\n            \"silhouette\": 0.3015174216210302,\n            \"davies_bouldin\": 1.145388754453813,\n            \"calinski_harabasz\": 891.1869628475177,\n            \"score_combo\": -0.8438713328327829\n        },\n        {\n            \"k\": 3,\n            \"silhouette\": 0.4051092845431826,\n            \"davies_bouldin\": 0.8613333494548928,\n            \"calinski_harabasz\": 2764.704633316933,\n            \"score_combo\": -0.4562240649117102\n        },\n        {\n            \"k\": 4,\n            \"silhouette\": 0.38201304618640886,\n            \"davies_bouldin\": 0.8625337925415277,\n            \"calinski_harabasz\": 2614.9536125786785,\n            \"score_combo\": -0.4805207463551189\n        },\n        {\n            \"k\": 5,\n            \"silhouette\": 0.39235674577392865,\n            \"davies_bouldin\": 0.7780791435385805,\n            \"calinski_harabasz\": 2809.805954633785,\n            \"score_combo\": -0.3857223977646519\n        },\n        {\n            \"k\": 6,\n            \"silhouette\": 0.3112933229806682,\n            \"davies_bouldin\": 0.9022611480172188,\n            \"calinski_harabasz\": 2564.597241161103,\n            \"score_combo\": -0.5909678250365507\n        },\n        {\n            \"k\": 7,\n            \"silhouette\": 0.35997523542142273,\n            \"davies_bouldin\": 0.7993909680002147,\n            \"calinski_harabasz\": 2858.6475886350954,\n            \"score_combo\": -0.43941573257879196\n        },\n        {\n            \"k\": 8,\n            \"silhouette\": 0.36300584801774965,\n            \"davies_bouldin\": 0.7956508018534754,\n            \"calinski_harabasz\": 2859.5047855483626,\n            \"score_combo\": -0.4326449538357257\n        }\n    ]\n}"
+						},
+						{
+							"name": "evaluate_k",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dataset_path\": \"antique/train\",\r\n  \"sample_size\": 3000,\r\n  \"min_k\": 2,\r\n  \"max_k\": 8\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/evaluate_k",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"evaluate_k"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 05 Jul 2025 11:27:35 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "1076"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"best_k\": 3,\n    \"evaluated_scores\": [\n        {\n            \"k\": 2,\n            \"silhouette\": 0.46003461809878765,\n            \"davies_bouldin\": 1.0561800030915034,\n            \"calinski_harabasz\": 1312.045011718634,\n            \"score_combo\": -0.5961453849927157\n        },\n        {\n            \"k\": 3,\n            \"silhouette\": 0.5049302747987131,\n            \"davies_bouldin\": 0.6783535315545856,\n            \"calinski_harabasz\": 3082.197973466245,\n            \"score_combo\": -0.17342325675587245\n        },\n        {\n            \"k\": 4,\n            \"silhouette\": 0.4445818036863384,\n            \"davies_bouldin\": 0.7393510886104531,\n            \"calinski_harabasz\": 2973.2936259217745,\n            \"score_combo\": -0.2947692849241147\n        },\n        {\n            \"k\": 5,\n            \"silhouette\": 0.40270531210576926,\n            \"davies_bouldin\": 0.7897358112830652,\n            \"calinski_harabasz\": 2675.7254844207596,\n            \"score_combo\": -0.387030499177296\n        },\n        {\n            \"k\": 6,\n            \"silhouette\": 0.4386685610895018,\n            \"davies_bouldin\": 0.7814138603866704,\n            \"calinski_harabasz\": 3172.9375506932356,\n            \"score_combo\": -0.34274529929716857\n        },\n        {\n            \"k\": 7,\n            \"silhouette\": 0.4222377744580833,\n            \"davies_bouldin\": 0.8049360455270927,\n            \"calinski_harabasz\": 3114.329149620315,\n            \"score_combo\": -0.38269827106900944\n        },\n        {\n            \"k\": 8,\n            \"silhouette\": 0.38280186019895035,\n            \"davies_bouldin\": 0.899915684415326,\n            \"calinski_harabasz\": 2952.794824554206,\n            \"score_combo\": -0.5171138242163756\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "eval",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dataset_path\": \"antique/train\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tfidf/eval/clustering",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tfidf",
+								"eval",
+								"clustering"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "eval",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dataset_path\": \"lotte/lifestyle/dev/forum\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tfidf/eval/clustering",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tfidf",
+										"eval",
+										"clustering"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 05 Jul 2025 12:53:08 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "181"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"execution_time_seconds\": 481.918,\n    \"average_precision\": 0.6316239316239317,\n    \"average_recall\": 0.6316239316239317,\n    \"average_map_score\": 0.7059605949850659,\n    \"average_mrr\": 0.7907475240808575\n}"
+						},
+						{
+							"name": "eval-tfidf",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/tfidf/eval",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tfidf",
+										"eval"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 05 Jul 2025 13:46:46 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "182"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"execution_time_seconds\": 551.817,\n    \"average_precision\": 0.49803921568627446,\n    \"average_recall\": 0.49803921568627446,\n    \"average_map_score\": 0.5635681216931216,\n    \"average_mrr\": 0.588562091503268\n}"
+						},
+						{
+							"name": "eval",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dataset_path\": \"antique/train\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tfidf/eval/clustering",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tfidf",
+										"eval",
+										"clustering"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 05 Jul 2025 13:33:13 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "181"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"execution_time_seconds\": 622.621,\n    \"average_precision\": 0.5897280966767373,\n    \"average_recall\": 0.5897280966767373,\n    \"average_map_score\": 0.6617182103903438,\n    \"average_mrr\": 0.7286049968829424\n}"
+						},
+						{
+							"name": "eval-tfidf",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/tfidf/eval",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tfidf",
+										"eval"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 05 Jul 2025 14:13:01 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "181"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"execution_time_seconds\": 606.848,\n    \"average_precision\": 0.5655555555555555,\n    \"average_recall\": 0.5655555555555555,\n    \"average_map_score\": 0.7122262867080988,\n    \"average_mrr\": 0.8165145502645502\n}"
+						}
+					]
 				}
 			]
 		}
