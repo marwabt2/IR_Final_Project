@@ -38,7 +38,7 @@ class HybridSearchRequest(BaseModel):
 
 @router.post("/hybrid/search")
 def hybrid_search(request: HybridSearchRequest):
-    logger.info(f"Hybrid Eval [tfidf+bert] on dataset: {request.dataset_path}")
+    logger.info(f"Hybrid Search [tfidf+bert] on dataset: {request.dataset_path}")
     safe_name = request.dataset_path.replace("/", "__")
     db_dir = os.path.join("db", safe_name)
 
@@ -55,31 +55,41 @@ def hybrid_search(request: HybridSearchRequest):
 
     # تمثيل TF-IDF للكويري
     tfidf_q = tfidf_vectorizer.transform([query_processed])
-    tfidf_q_reduced = svd.transform(tfidf_q)
+    tfidf_q_reduced = svd.transform(tfidf_q).astype(np.float32)
 
     # تمثيل BERT للكويري
     model = load_bert_model()
-    bert_q = model.encode([query_processed], normalize_embeddings=True)
+    bert_q = model.encode([query_processed], normalize_embeddings=True).astype(np.float32)
 
-    # توحيد الأبعاد
-    min_dim = min(tfidf_q_reduced.shape[1], bert_q.shape[1])
-    tfidf_q_reduced_cut = tfidf_q_reduced[:, :min_dim]
-    bert_q_cut = bert_q[:, :min_dim]
-
-    # دمج التمثيلات
-    tfidf_weight = request.tfidf_weight
-    bert_weight = request.bert_weight
-    hybrid_query = tfidf_weight * tfidf_q_reduced_cut + bert_weight * bert_q_cut
-
-    hybrid_query = np.ascontiguousarray(hybrid_query.astype(np.float32))
-    faiss.normalize_L2(hybrid_query)
-
-    # تحميل FAISS index (ما بينحفظ بالكاش لأنه ممكن يكون كبير جداً، بس فيك تضيفه إذا بدك)
+    # تحميل FAISS index ومعرفة الأبعاد المتوقعة
     faiss_index_path = os.path.join(db_dir, "hybrid_faiss.index")
     index = faiss.read_index(faiss_index_path)
+    target_dim = index.d
 
+    # دالة لضبط الأبعاد: قص أو padding بالأصفار
+    def adjust_dim(vec, target_dim):
+        current_dim = vec.shape[1]
+        if current_dim > target_dim:
+            return vec[:, :target_dim]
+        elif current_dim < target_dim:
+            padding = np.zeros((vec.shape[0], target_dim - current_dim), dtype=vec.dtype)
+            return np.hstack([vec, padding])
+        else:
+            return vec
+
+    # ضبط التمثيلات لتطابق الفهرس
+    tfidf_vec = adjust_dim(tfidf_q_reduced, target_dim)
+    bert_vec = adjust_dim(bert_q, target_dim)
+
+    # الدمج
+    hybrid_query = request.tfidf_weight * tfidf_vec + request.bert_weight * bert_vec
+    hybrid_query = np.ascontiguousarray(hybrid_query)
+    faiss.normalize_L2(hybrid_query)
+
+    # البحث باستخدام FAISS
     D, I = index.search(hybrid_query, request.top_n)
 
+    # استخراج النتائج
     results = []
     for score, idx in zip(D[0], I[0]):
         results.append({

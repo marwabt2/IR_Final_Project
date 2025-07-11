@@ -71,7 +71,7 @@ def search_documents(request: SearchRequest):
 
 @router.post("/tfidf/search/clustering")
 def search_documents(request: SearchRequest):
-    logger.info(f"TF-IDF Weighted Index Search on dataset: {request.dataset_path}")
+    logger.info(f"TF-IDF Weighted Index Search with clustering on dataset: {request.dataset_path}")
     data = load_dataset_from_cache(request.dataset_path)
     processor = TextProcessor()
 

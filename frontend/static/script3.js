@@ -1,41 +1,3 @@
-// async function sendQuery() {
-//   const query = document.getElementById("query").value;
-//   const dataset = document.getElementById("dataset").value;
-//   const resultDiv = document.getElementById("result");
-
-//   const response = await fetch("/tfidf/search", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       query: query,
-//       dataset_path: dataset,
-//     }),
-//   });
-
-//   const data = await response.json();
-
-//   // هذا هو السطر المعدل لاستخراج النصوص فقط
-//   const texts = data.top_documents.map((doc) => doc.text);
-
-//   if (!texts || texts.length === 0) {
-//     resultDiv.innerHTML = "<p>No results found.</p>";
-//     return;
-//   }
-
-//   resultDiv.innerHTML = texts
-//     .map(
-//       (text, index) => `
-//       <div class="card">
-//         <h3>Result ${index + 1}</h3>
-//         <p>${text}</p>
-//       </div>
-//     `
-//     )
-//     .join("");
-// }
-
 let currentPage = 1;
 const resultsPerPage = 4;
 let allTexts = [];
@@ -45,9 +7,8 @@ async function sendQuery() {
   const dataset = document.getElementById("dataset").value;
   const resultDiv = document.getElementById("result");
   const paginationDiv = document.getElementById("pagination");
-  const api = document.getElementById("search_type").value;
-  console.log(api);
-  const response = await fetch(api, {
+
+  const response = await fetch("/bert/search", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query, dataset_path: dataset }),

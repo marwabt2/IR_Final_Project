@@ -195,6 +195,11 @@ async def hybrid_eval(request: DatasetPathRequest):
 async def search_with_clustering(request: DatasetPathRequest):
     return await evaluate_search(request, "http://localhost:8000/tfidf/search/clustering")
 
+@app.post("/normal/bert/eval")
+async def normal_bert_eval(request: DatasetPathRequest):
+    return await evaluate_search(request, "http://localhost:8000/normal/bert/search")
+
+
 
 
 

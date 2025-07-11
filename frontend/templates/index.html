@@ -15,32 +15,101 @@
         color: #444;
       }
 
-      .search-bar {
-        display: inline-flex;
+      .top-controls {
+        display: flex;
+        justify-content: center;
         gap: 10px;
-        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+      }
+
+      select {
+        padding: 8px 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        width: 160px;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-btn {
+        padding: 8px 10px;
+        font-size: 14px;
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .dropdown-btn:hover {
+        background-color: #5a6268;
+      }
+
+      .dropdown-content {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: absolute;
+        background-color: white;
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        z-index: 1;
+        margin-top: 5px;
+        right: 0;
+        text-align: left;
+      }
+
+      .dropdown.open .dropdown-content {
+        opacity: 1;
+        max-height: 500px;
+        padding-top: 5px;
+      }
+
+      .dropdown-content a {
+        color: #333;
+        padding: 10px 16px;
+        text-decoration: none;
+        display: block;
+        border-bottom: 1px solid #eee;
+      }
+
+      .dropdown-content a:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #f8f9fa;
+      }
+
+      .query-controls {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
         margin-bottom: 20px;
       }
 
-      .search-bar input[type="text"] {
-        width: 250px;
+      input#query {
+        width: 480px;
         padding: 10px;
-        font-size: 16px;
+        font-size: 15px;
         border: 1px solid #ccc;
         border-radius: 6px;
+        white-space: nowrap;
+        overflow: auto;
       }
 
-      .search-bar select {
-        width: 160px;
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-      }
-
-      .search-bar button {
+      .search-btn {
         padding: 10px 20px;
-        font-size: 16px;
+        font-size: 14px;
         border: none;
         border-radius: 6px;
         background-color: #007bff;
@@ -48,7 +117,7 @@
         cursor: pointer;
       }
 
-      .search-bar button:hover {
+      .search-btn:hover {
         background-color: #0056b3;
       }
 
@@ -77,20 +146,54 @@
   </head>
   <body>
     <h1>Information Retrieval System</h1>
-    <br />
-    <br />
-    <div class="search-bar">
-      <input type="text" id="query" placeholder="Enter your query..." />
+
+    <!-- ✅ السطر الأول -->
+    <div class="top-controls">
       <select id="dataset">
         <option value="lotte/lifestyle/dev/forum">LifeStyle</option>
         <option value="antique/train">Antique</option>
       </select>
-      <button onclick="sendQuery()">Search</button>
+
+      <select id="search_type">
+        <option value="/tfidf/search">TF_IDF</option>
+        <option value="/normal/bert/search">Bert</option>
+        <option value="/hybrid/search">Hybrid</option>
+        <option value="/bm25/search">BM25</option>
+      </select>
+
+      <div class="dropdown" onclick="toggleDropdown(event)">
+        <button class="dropdown-btn">⚙️ Features</button>
+        <div class="dropdown-content" id="featuresMenu">
+          <a href="/advanced">Query Refinement</a>
+          <a href="/cluster">Clustering</a>
+          <a href="/vector_store">Vector Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ السطر الثاني -->
+    <div class="query-controls">
+      <input type="text" id="query" placeholder="Enter your query..." />
+      <button class="search-btn" onclick="sendQuery()">Search</button>
     </div>
 
     <div id="result"></div>
     <div id="pagination" style="text-align: center; margin-top: 20px"></div>
 
     <script src="/static/script.js"></script>
+    <script>
+      function toggleDropdown(event) {
+        event.stopPropagation();
+        const dropdown = event.currentTarget;
+        dropdown.classList.toggle("open");
+
+        document.addEventListener("click", function closeMenu(e) {
+          if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove("open");
+            document.removeEventListener("click", closeMenu);
+          }
+        });
+      }
+    </script>
   </body>
 </html>

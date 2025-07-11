@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Information Retrieval System</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+        padding: 30px;
+        text-align: center;
+      }
+
+      h1 {
+        color: #444;
+        margin-bottom: 30px;
+      }
+
+      .search-container {
+        max-width: 700px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .search-bar {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .search-bar input[type="text"],
+      .search-bar select,
+      .search-bar button {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+
+      .search-bar input[type="text"] {
+        flex: 2;
+      }
+
+      .search-bar select {
+        flex: 1;
+      }
+
+      .search-bar button {
+        flex: 1;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        border: none;
+      }
+
+      .search-bar button:hover {
+        background-color: #0056b3;
+      }
+
+      .autocomplete-box {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+        background-color: white;
+        width: 100%;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 5px;
+        text-align: left;
+      }
+
+      .autocomplete-box li {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+      }
+
+      .autocomplete-box li:hover {
+        background-color: #f0f0f0;
+      }
+
+      .corrected-box {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #555;
+        text-align: left;
+        width: 100%;
+      }
+
+      .suggestion-tags {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-start;
+        width: 100%;
+      }
+
+      .suggestion-tag {
+        background-color: #e0f0ff;
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        color: #007bff;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .suggestion-tag:hover {
+        background-color: #cde7ff;
+      }
+
+      #result {
+        margin-top: 30px;
+        text-align: left;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: left;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .card h3 {
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Information Retrieval System</h1>
+    <div class="search-container">
+      <div class="search-bar">
+        <input
+          type="text"
+          id="query"
+          placeholder="Enter your query..."
+          autocomplete="off"
+        />
+        <select id="dataset">
+          <option value="lotte/lifestyle/dev/forum">LifeStyle</option>
+          <option value="antique/train">Antique</option>
+        </select>
+        <button onclick="sendQuery()">Search</button>
+      </div>
+
+      <select id="search_type">
+        <option value="/tfidf/search">TF_IDF</option>
+        <option value="/normal/bert/search">Bert</option>
+        <option value="/hybrid/search">Hybrid</option>
+        <option value="/bm25/search">BM25</option>
+      </select>
+
+      <ul id="autocompleteBox" class="autocomplete-box"></ul>
+      <div id="corrections" class="corrected-box"></div>
+      <div id="suggestions" class="suggestion-tags"></div>
+    </div>
+
+    <div id="result"></div>
+    <div id="pagination" style="text-align: center; margin-top: 20px"></div>
+
+    <script src="/static/advanced_script.js"></script>
+  </body>
+</html>
