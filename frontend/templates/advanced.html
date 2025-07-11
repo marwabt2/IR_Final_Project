@@ -17,7 +17,7 @@
       }
 
       .search-container {
-        max-width: 700px;
+        max-width: 1000px;
         margin: auto;
         display: flex;
         flex-direction: column;
@@ -28,28 +28,33 @@
         display: flex;
         gap: 10px;
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        flex-wrap: nowrap;
+        justify-content: center;
       }
 
       .search-bar input[type="text"],
       .search-bar select,
       .search-bar button {
         padding: 10px;
-        font-size: 16px;
+        font-size: 14px;
         border: 1px solid #ccc;
         border-radius: 6px;
       }
 
       .search-bar input[type="text"] {
-        flex: 2;
+        width: 35%;
+        min-width: 180px;
       }
 
       .search-bar select {
-        flex: 1;
+        width: 15%;
+        min-width: 120px;
       }
 
       .search-bar button {
-        flex: 1;
+        width: 12%;
+        min-width: 80px;
         background-color: #007bff;
         color: white;
         cursor: pointer;
@@ -153,15 +158,14 @@
           <option value="lotte/lifestyle/dev/forum">LifeStyle</option>
           <option value="antique/train">Antique</option>
         </select>
+        <select id="search_type">
+          <option value="/tfidf/search">TF_IDF</option>
+          <option value="/normal/bert/search">Bert</option>
+          <option value="/hybrid/search">Hybrid</option>
+          <option value="/bm25/search">BM25</option>
+        </select>
         <button onclick="sendQuery()">Search</button>
       </div>
-
-      <select id="search_type">
-        <option value="/tfidf/search">TF_IDF</option>
-        <option value="/normal/bert/search">Bert</option>
-        <option value="/hybrid/search">Hybrid</option>
-        <option value="/bm25/search">BM25</option>
-      </select>
 
       <ul id="autocompleteBox" class="autocomplete-box"></ul>
       <div id="corrections" class="corrected-box"></div>

@@ -168,3 +168,48 @@ def bm25_processed_text(text):
     tokens = text.split()
     tokens = [t for t in tokens if t not in stop_words]
     return tokens  # ملاحظة: لا ترجعي string، فقط tokens
+
+
+
+
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+
+router = APIRouter()
+
+_text_processor = TextProcessor()
+
+class TextIn(BaseModel):
+    text: str
+
+
+class TextOut(BaseModel):
+    processed_text: str
+
+
+class TokensOut(BaseModel):
+    tokens: list[str]
+
+@router.post("/process_text", response_model=TextOut)
+async def process_text_route(payload: TextIn):
+    """
+    يُعيد النص بعد تمريره في pipeline الكاملة (processed_text).
+    """
+    if payload.text is None or payload.text.strip() == "":
+        raise HTTPException(status_code=400, detail="Text must not be empty")
+
+    cleaned = processed_text(payload.text, _text_processor)
+    return {"processed_text": cleaned}
+
+
+@router.post("/process_text/bm25", response_model=TokensOut)
+async def process_text_bm25_route(payload: TextIn):
+    """
+    يُنظّف النص بأسلوب BM25 ويُرجع التوكينات فقط.
+    """
+    if payload.text is None or payload.text.strip() == "":
+        raise HTTPException(status_code=400, detail="Text must not be empty")
+
+    tokens = bm25_processed_text(payload.text)
+    return {"tokens": tokens}
+

@@ -14,6 +14,7 @@ from sklearn.metrics import precision_score, recall_score, average_precision_sco
 from backend.database.connection import get_mongo_connection
 from fastapi.responses import JSONResponse
 
+from backend.services.text_processing_service import router as text_processing_router
 from backend.services.representation.tfidf_service import router as tfidf_router
 from backend.services.representation.bert_service import router as bert_router
 from backend.services.representation.bm25_service import router as bm25_router
@@ -30,6 +31,7 @@ from backend.services.clustering_service import router as clustering_router
 app = FastAPI()
 
 # تسجيل الروترات
+app.include_router(text_processing_router)
 app.include_router(tfidf_router)
 app.include_router(bert_router)
 app.include_router(bm25_router)

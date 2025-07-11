@@ -18,7 +18,7 @@ from backend.services.search.bm25_search_service import router as bm25_search_ro
 from backend.services.search.hybrid_search_service import router as hybrid_search_router
 
 from backend.services.clustering_service import router as clustering_router
-# from backend.services.suggestions.suggestions_router import router as suggestions_router
+from backend.services.suggestions.suggestions_router import router as suggestions_router
 
 app = FastAPI()
 app.include_router(tfidf_search_router)
@@ -26,7 +26,7 @@ app.include_router(bert_search_router)
 app.include_router(hybrid_search_router)
 app.include_router(bm25_search_router)
 app.include_router(clustering_router)
-# app.include_router(suggestions_router)
+app.include_router(suggestions_router)
 
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 templates = Jinja2Templates(directory="frontend/templates")
@@ -36,9 +36,9 @@ templates = Jinja2Templates(directory="frontend/templates")
 async def homepage(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-# @app.get("/advanced", response_class=HTMLResponse)
-# async def advanced_features_page(request: Request):
-#     return templates.TemplateResponse("advanced.html", {"request": request})
+@app.get("/advanced", response_class=HTMLResponse)
+async def advanced_features_page(request: Request):
+    return templates.TemplateResponse("advanced.html", {"request": request})
 @app.get("/cluster", response_class=HTMLResponse)
 async def clustering_page(request: Request):
     return templates.TemplateResponse("cluster.html", {"request": request})
