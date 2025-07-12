@@ -26,6 +26,7 @@ from backend.services.search.tfidf_search_service import router as tfidf_search_
 from backend.services.search.bert_search_service import router as bert_search_router
 from backend.services.search.bm25_search_service import router as bm25_search_router
 from backend.services.search.hybrid_search_service import router as hybrid_search_router
+from backend.services.search.bert_search_query_ref_service  import router as bert_search_query_ref_router
 
 from backend.services.clustering_service import router as clustering_router
 app = FastAPI()
@@ -43,6 +44,7 @@ app.include_router(tfidf_search_router)
 app.include_router(bert_search_router)
 app.include_router(bm25_search_router)
 app.include_router(hybrid_search_router)
+app.include_router(bert_search_query_ref_router)
 
 app.include_router(clustering_router)
 
@@ -200,6 +202,10 @@ async def search_with_clustering(request: DatasetPathRequest):
 @app.post("/normal/bert/eval")
 async def normal_bert_eval(request: DatasetPathRequest):
     return await evaluate_search(request, "http://localhost:8000/normal/bert/search")
+
+@app.post("/ref/bert/eval")
+async def normal_bert_eval(request: DatasetPathRequest):
+    return await evaluate_search(request, "http://localhost:8000/bert/search_query_ref")
 
 
 

@@ -16,6 +16,7 @@ from backend.services.search.tfidf_search_service import router as tfidf_search_
 from backend.services.search.bert_search_service import router as bert_search_router
 from backend.services.search.bm25_search_service import router as bm25_search_router
 from backend.services.search.hybrid_search_service import router as hybrid_search_router
+from backend.services.search.bert_search_query_ref_service  import router as bert_search_query_ref_router
 
 from backend.services.clustering_service import router as clustering_router
 from backend.services.suggestions.suggestions_router import router as suggestions_router
@@ -27,6 +28,7 @@ app.include_router(hybrid_search_router)
 app.include_router(bm25_search_router)
 app.include_router(clustering_router)
 app.include_router(suggestions_router)
+app.include_router(bert_search_query_ref_router)
 
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 templates = Jinja2Templates(directory="frontend/templates")

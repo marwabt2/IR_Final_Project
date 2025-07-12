@@ -473,44 +473,6 @@
 			"name": "bert",
 			"item": [
 				{
-					"name": "create-bert",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/bert_embeddings/build",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"bert_embeddings",
-								"build"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "search-bert",
 					"request": {
 						"method": "POST",
@@ -679,6 +641,185 @@
 							],
 							"port": "8000",
 							"path": [
+								"bert",
+								"eval"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bert ref",
+			"item": [
+				{
+					"name": "search-bert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\",\r\n    \"query\" :\"are zebra loaches safe with shrimp\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/bert/search_query_ref",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"bert",
+								"search_query_ref"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "search-bert",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"lotte/lifestyle/dev/forum\",\r\n    \"query\" :\"are zebra loaches safe with shrimp\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/bert/search_query_ref",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"bert",
+										"search_query_ref"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 12 Jul 2025 16:54:47 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "8568"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"top_documents\": [\n        {\n            \"doc_id\": \"7323\",\n            \"score\": 0.06923867762088776,\n            \"text\": \"I made the mistake of keeping Kouli Loaches in a 55 gal heavily planted tank with Amano shrimp. I added several shrimp 3 times and they would just disappear. I thought they were just finding good hiding places until late one night I was watching and one of my loaches attacked and ate an Amano shrimp. They might be compatible at first until the loaches grow large enough to eat the shrimp.\"\n        },\n        {\n            \"doc_id\": \"7794\",\n            \"score\": -0.8736913204193115,\n            \"text\": \"Mine does! I had a betta for more than four years and he died a few months ago. He happily shared his 3.5 gallon (13 liters) habitat with some ghost shrimp and a zebra snail. I recently replaced the betta and the new one will not leave the zebra snail alone - always flaring, swimming around him and nipping at his shell. The snail (about 1.5 inch / 3.8 cm long) doesn't seem to care and will hopefully be fine. I don't know what to do to get the fish to leave him alone!\"\n        },\n        {\n            \"doc_id\": \"4573\",\n            \"score\": -0.9236429929733276,\n            \"text\": \"I actually have 4 Yoyo loaches, two cory dorus (SP) and 5 cherry shrimp. So far, for the past 3 months, my shrimp have been fine so far. My tank is heavily planted with moss and various other plants which obviously helps. Also, my Yoyo's are well fed and there are plenty of pest snails to keep them happy - shrimp can move pretty fast when they want to so its easier for them to eat the snails than chase the shrimp. Good luck\"\n        },\n        {\n            \"doc_id\": \"6305\",\n            \"score\": -1.3637139797210693,\n            \"text\": \"Shrimp won't cause any noticeable bioload in a tank, especially a 60l one, and they won't 'stress out' any inhabitants other than solo fish, such as a betta, which shouldn't really have anything sharing the tank with it anyway. As for using them as food, I'm not sure it'd work - if you fish don't actively eat the shrimp currently, then they are unlikely to be bothered about eating them once they are dead either as they are likely herbivores If you happen to have another tank that has loaches in (I know both Pakistani and Clown loaches will) they will eat shrimps and snails quite happily.\"\n        },\n        {\n            \"doc_id\": \"3811\",\n            \"score\": -2.1030068397521973,\n            \"text\": \"The key word you used was Loaches. Any shrimp you put in that tank are immediately an expensive fancy dinner. Loaches will flip them and rip them out of their shells just like they were snails. Loaches and invertebrates just don't mix. Mollies will eat all but the largest shrimp as well. I've had this experience personally as I watched one devour my red crystals.\"\n        },\n        {\n            \"doc_id\": \"619\",\n            \"score\": -4.119870185852051,\n            \"text\": \"Amano shrimp are good tank mates for community fish. They'll ignore your fish altogether. And they eat algae 24x7, which never hurts. Amano shrimp require brackish water for breeding, so won't breed in most tanks. This also makes them difficult to find. Cherry shrimp (and their color varieties) will also be no threat to your fish. But, they are very small, so aggressive fish (barbs, for example) may go after them. They breed quite easily and rapidly, so if you want more of them make sure you have plenty of hiding places for the young shrimp. Cherry shrimp are also algae eaters, though being so small you'll need huge quantities of them to have an real impact if algae controll is a goal. Really, for most shrimp in tanks, the issue isn't if they are a danger to the fish, but if the fish will be a danger to the shrimps. Even larger shrimp may find their extremities and tails the target of nipping. The tetras shouldn't be a problem for the shrimp, but the loaches may go after them. Edit: One heads up about shrimp (and most aquarium invertebrates, actually). A lot of medications and chemicals you might use in a tank are poisonous to them. So once they are in there, you'll need to be extra careful with what you put into the tank, and check that it is safe for shrimp.\"\n        },\n        {\n            \"doc_id\": \"3550\",\n            \"score\": -5.322508335113525,\n            \"text\": \"Looks like a damselfly larvae to me, which isn't actually a parasite. It is, however, carnivorous... If your fish were larger, this larvae could have turned into food for them, but not in this case as you have small fish. So, as it is they can be dangerous to your fish and shrimp, so best to make sure you get them out of the tanks as soon you find them. Not sure how it got to your tank, but best to be careful and quarantine new plants for your tank for some time to ensure that they are free of unwanted guests.\"\n        },\n        {\n            \"doc_id\": \"4162\",\n            \"score\": -5.332817077636719,\n            \"text\": \"Snails are generally much more resistant to water changes than fish (and definitely shrimp). So I would not bother to acclimate them, or definitely not for the same duration as with fish or shrimps. E.g. 15 minutes or so, just to be safe. I bought a few a few of these a while back and just dropped them in my tank. I also transferred them from 1 tank to another, without any problems or deaths.\"\n        },\n        {\n            \"doc_id\": \"7816\",\n            \"score\": -5.388125896453857,\n            \"text\": \"Shrimp and fish is not a really good idea. The explanation is simple, the problem is the \\\"zoeas\\\" (baby shrimp). All small fish, like tetra neon, etc. can eat them so this is a problem for the reproduction of your shrimp as well. Some options can be: Use only herbivorous fish, some examples can be Otocinclus affinis, Stiphodon sp., Corydoras pygmaeus or Gyrinocheilus aymonieri. These fish doesn't eat zoeas. Use rasboras or fish like Boraras brigittae or Poecilia wingei, these fish can eat zoeas so you need to put plants in your tank to make refuges for your shrimp. Other examples: Celestichthys margaritatus Hemigrammus rodwayi Ember Tetra Flame Tetra Crystal Red Tetra You can try to put \\\"big fish\\\" in your tank, like Metynnis argenteus, this is an herbivorous fish and is cool to see when it grows to its maximum size. They don't attack other fishes. Surface fish like hatchet fish can be a good option in this tank, because the shrimp are bottom dwellers of the tank. You have another great options here, just make a search and you can find some good candidates for the aquarium. Bad options: Single Betta male, this is a really aggressive and territorial fish so you will have problems with other fish in the tank and with the shrimps. Pentazona barbs or other barbs are a big problem, because these guys grow to a significant size and you will lose all your shrimp if they find them. If you put assassin snails without putting others snails, assassin snails will die because they eat other snails, so you would need to feed them with other snails. They can eat other animal-based foods, but with other snails you don't need to keep feeding them with other alimentation. Put fish with a large size, because you will have problem with other fish and with the shrimp.\"\n        },\n        {\n            \"doc_id\": \"70166\",\n            \"score\": -5.462034702301025,\n            \"text\": \"Live shrimp are just that, alive. You can use the fact that they are alive to determine that they are reasonably safe to eat. However frozen shrimp do not have that built-in check. The FDA and other agencies will \\\"police\\\" commercially available frozen shrimp, but they don't do anything for bait shrimp. Frozen bait shrimp are usually the dead, dying, or otherwise discarded live bait shrimp. It's not uncommon for a bait shop to sell live shrimp, then take all the dead \\\"floaters\\\" and sell them as frozen shrimp. Again, quite safe for bait, not so good for eating. Bait shrimp you freeze yourself has a similar issue. If you're eating the live bait shrimp, then you know, for a fact, how old and what condition the shrimp are in. If you happen to have a bait-well full of dead shrimp and freeze it, (again that's fine for bait,) you have no idea why the shrimp died. Moreover, if you \\\"collect\\\" frozen shrimp between trips, you probably didn't bother to mark the freeze date or freeze the shrimp quickly, or a bunch of other things. In essence, live shrimp you take from the bait-well and boil or try, you know the state of. Frozen (bait) shrimp has been rolling around in the freezer for an unknown amount of time. Well better that one just be bait. Now you could eat the frozen shrimp if you take great care in freezing it. But again, that's not usually what happens. http://myfwc.com/research/saltwater/crustaceans/shrimp/faq/ http://floridahillbilly.com/eating-bait-shrimp/\"\n        }\n    ],\n    \"cosine_similarities\": [\n        0.06923867762088776,\n        -0.8736913204193115,\n        -0.9236429929733276,\n        -1.3637139797210693,\n        -2.1030068397521973,\n        -4.119870185852051,\n        -5.322508335113525,\n        -5.332817077636719,\n        -5.388125896453857,\n        -5.462034702301025\n    ],\n    \"top_documents_indices\": [\n        7323,\n        7794,\n        4573,\n        6305,\n        3811,\n        619,\n        3550,\n        4162,\n        7816,\n        70166\n    ]\n}"
+						},
+						{
+							"name": "search-bert",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dataset_path\" : \"antique/train\",\r\n    \"query\" :\"Why doesn't the water fall off  earth if it's round?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/bert/search_query_ref",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"bert",
+										"search_query_ref"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 12 Jul 2025 16:56:02 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "2636"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"top_documents\": [\n        {\n            \"doc_id\": \"714612_0\",\n            \"score\": 8.948556900024414,\n            \"text\": \"This goes along with the question of why don't we fall off the earth if it is round. The answer is because gravity is holding us (and the water) down.\"\n        },\n        {\n            \"doc_id\": \"2781942_4\",\n            \"score\": 5.153530597686768,\n            \"text\": \"Water doesn't spill off of the earth because there is gravity in the center of the earth that holds down the water.\"\n        },\n        {\n            \"doc_id\": \"2781942_0\",\n            \"score\": 4.289561748504639,\n            \"text\": \"Why don't we fall off?  Simple, gravity.  Large objects have a natural gravitational pull...  Earth is a LARGE object haha  A very large object.  So Earth is just pulling water towards it.\"\n        },\n        {\n            \"doc_id\": \"714612_7\",\n            \"score\": 3.7185094356536865,\n            \"text\": \"because there is no gravity strong enough around earth for water to fall of the earth\"\n        },\n        {\n            \"doc_id\": \"222393_5\",\n            \"score\": 0.6896238327026367,\n            \"text\": \"They dont fall. It appears like that due to the rotation of the earth.\"\n        },\n        {\n            \"doc_id\": \"1695688_4\",\n            \"score\": -2.0266919136047363,\n            \"text\": \"wind off the water is colder than off land because of evaperation\"\n        },\n        {\n            \"doc_id\": \"1176743_3\",\n            \"score\": -3.1316027641296387,\n            \"text\": \"The water on earth goes through a cycle when it first exists as vapor in the atmosphere, then, when weather conditions are favorable, it condensates and form clouds which then in turn \\\"break\\\" apart in the form of rain drops.  The liquid water on earth flows in rivers, forms lakes and oceans and eventually becomes either frozen in the ice of the poles or evaporates to form more clouds.\"\n        },\n        {\n            \"doc_id\": \"2229748_1\",\n            \"score\": -3.2355782985687256,\n            \"text\": \"Yes it does decrease because cold air can hold less water vapour than warm air. So at altitude water vapour gets \\\"squeezed out\\\" and forms droplets which make clouds and fall as rain.\"\n        },\n        {\n            \"doc_id\": \"3370285_4\",\n            \"score\": -3.629883289337158,\n            \"text\": \"Water, a waterfall falls, but does not break, and surf breaks, but does not fall.\"\n        },\n        {\n            \"doc_id\": \"2703865_3\",\n            \"score\": -4.330158233642578,\n            \"text\": \"Water's highest density is at 4 degrees C.  Higher or lower than this and it will begin to expand.  This is because of the way the hydrogen atoms are attached to the oxygen.  They form a v shape (roughly) and when they freeze the hydrogen bods are forced further apart.  This is one of the reasons life can exist on this planet.  If water sank, then the oceans would be solid blocks of ice.\"\n        }\n    ],\n    \"cosine_similarities\": [\n        8.948556900024414,\n        5.153530597686768,\n        4.289561748504639,\n        3.7185094356536865,\n        0.6896238327026367,\n        -2.0266919136047363,\n        -3.1316027641296387,\n        -3.2355782985687256,\n        -3.629883289337158,\n        -4.330158233642578\n    ],\n    \"top_documents_indices\": [\n        41898,\n        46292,\n        46288,\n        41905,\n        137060,\n        85891,\n        55901,\n        265894,\n        84051,\n        105802\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "eval-bert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataset_path\" : \"antique/train\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/ref/bert/eval",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"ref",
 								"bert",
 								"eval"
 							]
@@ -2232,7 +2373,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"dataset_path\": \"lotte/lifestyle/dev/forum\",\r\n  \"num_clusters\": 3,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\"]\r\n}\r\n",
+									"raw": "{\r\n  \"dataset_path\": \"lotte/lifestyle/dev/forum\",\r\n  \"num_clusters\": 5,\r\n  \"sample_size\": 5000,\r\n  \"max_iter\": 100,\r\n  \"top_terms\": 10,\r\n  \"queries\": [\"cat and dog\"]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2260,7 +2401,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Sat, 05 Jul 2025 12:09:57 GMT"
+									"value": "Sat, 12 Jul 2025 10:19:36 GMT"
 								},
 								{
 									"key": "server",
@@ -2268,7 +2409,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "530"
+									"value": "694"
 								},
 								{
 									"key": "content-type",
@@ -2276,7 +2417,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"status\": \"Done clustering\",\n    \"silhouette_score\": 0.22641498705541271,\n    \"davies_bouldin_index\": 1.2116102731942335,\n    \"calinski_harabasz_index\": 1145.679772716785,\n    \"num_clusters\": 3,\n    \"top_terms_per_cluster\": {\n        \"0\": [\n            \"get\",\n            \"bike\",\n            \"use\",\n            \"would\",\n            \"like\",\n            \"one\",\n            \"water\",\n            \"time\",\n            \"need\",\n            \"wa\"\n        ],\n        \"1\": [\n            \"wire\",\n            \"use\",\n            \"switch\",\n            \"need\",\n            \"one\",\n            \"would\",\n            \"light\",\n            \"like\",\n            \"water\",\n            \"ground\"\n        ],\n        \"2\": [\n            \"chord\",\n            \"play\",\n            \"note\",\n            \"music\",\n            \"string\",\n            \"major\",\n            \"scale\",\n            \"key\",\n            \"minor\",\n            \"guitar\"\n        ]\n    },\n    \"plot_image_path\": \"db\\\\lotte__lifestyle__dev__forum\\\\clusters_plot.png\",\n    \"query_predictions\": [\n        1\n    ]\n}"
+							"body": "{\n    \"status\": \"Done clustering\",\n    \"silhouette_score\": 0.28506585515721267,\n    \"davies_bouldin_index\": 0.8992622446149474,\n    \"calinski_harabasz_index\": 3739.6061874813877,\n    \"num_clusters\": 5,\n    \"top_terms_per_cluster\": {\n        \"0\": [\n            \"get\",\n            \"use\",\n            \"water\",\n            \"bike\",\n            \"would\",\n            \"one\",\n            \"like\",\n            \"need\",\n            \"time\",\n            \"wa\"\n        ],\n        \"1\": [\n            \"use\",\n            \"water\",\n            \"need\",\n            \"like\",\n            \"would\",\n            \"one\",\n            \"get\",\n            \"could\",\n            \"may\",\n            \"engin\"\n        ],\n        \"2\": [\n            \"note\",\n            \"use\",\n            \"like\",\n            \"play\",\n            \"get\",\n            \"string\",\n            \"child\",\n            \"would\",\n            \"time\",\n            \"one\"\n        ],\n        \"3\": [\n            \"wire\",\n            \"switch\",\n            \"ground\",\n            \"neutral\",\n            \"breaker\",\n            \"circuit\",\n            \"box\",\n            \"connect\",\n            \"light\",\n            \"hot\"\n        ],\n        \"4\": [\n            \"chord\",\n            \"play\",\n            \"note\",\n            \"music\",\n            \"scale\",\n            \"major\",\n            \"minor\",\n            \"key\",\n            \"string\",\n            \"finger\"\n        ]\n    },\n    \"plot_image_path\": \"db\\\\lotte__lifestyle__dev__forum\\\\clusters_plot.png\",\n    \"query_predictions\": [\n        1\n    ]\n}"
 						},
 						{
 							"name": "create_clustering",
